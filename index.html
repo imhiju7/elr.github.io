@@ -10,11 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Calm Harmony (Warm neutrals with muted teal/blue accents) -->
-    <!-- Application Structure Plan: The application is structured as an interactive dashboard centered around a vertical timeline/stepper. This design transforms the linear, text-heavy report into a user-controlled, exploratory journey. The user can see the entire 8-step path at a glance and dive into the details of any step without being overwhelmed. This non-linear approach enhances usability by breaking down the complex process into manageable, digestible chunks. Key data is lifted into high-level visualizations (radar and timeline charts) for immediate insight, while detailed actions are neatly organized in tabs, supporting a layered information architecture that prioritizes clarity and user engagement. -->
+    <!-- Application Structure Plan: The application uses a dashboard and interactive stepper/timeline structure. This design transforms the linear, text-heavy report into a user-controlled, exploratory journey. The dashboard provides immediate high-level insights (skill gap, timeline). The vertical stepper allows users to see the entire 8-stage path at a glance and dive into the details of any stage without being overwhelmed. This layered, non-linear architecture enhances usability by breaking down the complex process into manageable, digestible chunks, prioritizing clarity and user engagement. -->
     <!-- Visualization & Content Choices: 
-        1. Report Info: IELTS Band 3.0 vs 7.0 skills. Goal: Compare competency levels. Viz: Interactive Radar Chart. Interaction: Buttons to toggle between Band 3, Band 7, and an overlay view. Justification: A radar chart provides a powerful visual "fingerprint" of skills, making the gap between the two levels instantly apparent. Library: Chart.js.
-        2. Report Info: The 8 "Resonance Points" and their durations. Goal: Visualize the project timeline. Viz: Horizontal Bar Chart (Gantt-like). Interaction: Hover tooltips for details. Justification: Clearly shows the time allocation for each phase of the 4-month plan, aiding in time management and setting expectations. Library: Chart.js.
-        3. Report Info: The detailed 8-step process. Goal: Guide the user through the learning journey. Presentation: Vertical Stepper/Timeline with a dynamic content panel. Interaction: Clicking a step updates the panel with that step's detailed information, organized into tabs. Justification: This is the core interactive element, breaking down the process into a non-linear, explorable format that prevents information overload and empowers the user to learn at their own pace. Method: HTML/Tailwind/JS.
+        1. Report Info: IELTS Band 3.0 vs 7.0 skills. Goal: Compare competency gap. Viz: Interactive Radar Chart. Interaction: Buttons to toggle between Band 3, Band 7, and an overlay view. Justification: A radar chart provides a powerful visual "fingerprint" of skills, making the gap instantly apparent. Library: Chart.js.
+        2. Report Info: The 8 stages and their durations. Goal: Visualize the project timeline. Viz: Horizontal Bar Chart (Gantt-like). Interaction: Hover tooltips for details. Justification: Clearly shows the time allocation for each phase of the 4-month plan, aiding in time management. Library: Chart.js.
+        3. Report Info: The detailed 8-stage process. Goal: Guide the user through the learning journey. Presentation: Vertical Stepper with a dynamic content panel. Interaction: Clicking a stage updates the panel with that stage's information, organized into tabs (Physical, Mental, Emotional, etc.) for clarity. Justification: This is the core interactive element, breaking down the process into an explorable format that prevents information overload and empowers the user to learn at their own pace. Method: HTML/Tailwind/JS.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -67,326 +67,291 @@
     <div class="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
 
         <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Hành Trình Cộng Hưởng Đến <span class="text-teal-600">IELTS 7.0</span></h1>
-            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Một lộ trình tương tác, chuyển hóa ý thức từ Band 3.0 đến 7.0 trong 4 tháng, dựa trên nguyên lý kiến trúc vũ trụ.</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Lộ Trình Thực Tiễn Chinh Phục <span class="text-teal-600">IELTS 7.0</span></h1>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Một kế hoạch hành động chi tiết, được thiết kế để dẫn dắt bạn từ Band 3.0 đến 7.0 trong 4 tháng.</p>
         </header>
 
         <section id="dashboard" class="mb-12">
-            <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Bảng Điều Khiển Năng Lượng</h2>
+            <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Bảng Điều Khiển Hành Trình</h2>
             <p class="text-center text-slate-600 mb-8 max-w-4xl mx-auto">
-                Phần này cung cấp một cái nhìn tổng quan trực quan về hành trình của bạn. Biểu đồ radar so sánh tần số năng lượng ngôn ngữ giữa điểm xuất phát và mục tiêu, trong khi biểu đồ phân bổ thời gian vạch ra lộ trình cho từng giai đoạn chuyển hóa. Sử dụng các công cụ này để định vị và hiệu chỉnh hướng đi của bạn.
+                Phần này cung cấp một cái nhìn tổng quan trực quan về hành trình của bạn. Biểu đồ radar so sánh các kỹ năng giữa điểm xuất phát và mục tiêu, trong khi biểu đồ phân bổ thời gian vạch ra lộ trình cho từng giai đoạn. Sử dụng các công cụ này để định vị và hiệu chỉnh hướng đi của bạn.
             </p>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="text-xl font-bold text-center mb-4">So Sánh Tần Số Kỹ Năng (Band 3.0 vs 7.0)</h3>
+                    <h3 class="text-xl font-bold text-center mb-4">So Sánh Năng Lực (Band 3.0 vs 7.0)</h3>
                     <div class="chart-container">
                         <canvas id="ieltsRadarChart"></canvas>
                     </div>
                     <div class="flex justify-center mt-4 space-x-2">
-                        <button id="band3Btn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-teal-500 text-white shadow-md hover:bg-teal-600 transition-colors">Band 3.0</button>
+                        <button id="band3Btn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-rose-500 text-white shadow-md hover:bg-rose-600 transition-colors">Band 3.0</button>
                         <button id="band7Btn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-teal-500 text-white shadow-md hover:bg-teal-600 transition-colors">Band 7.0</button>
-                        <button id="bothBtn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-teal-700 text-white shadow-md hover:bg-teal-800 transition-colors">So Sánh</button>
+                        <button id="bothBtn" class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-700 text-white shadow-md hover:bg-slate-800 transition-colors">So Sánh</button>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="text-xl font-bold text-center mb-4">Phân Bổ Thời Gian Tương Tác (τ)</h3>
+                    <h3 class="text-xl font-bold text-center mb-4">Phân Bổ Thời Gian Các Giai Đoạn</h3>
                      <div class="chart-container" style="max-width: 100%;">
                         <canvas id="timelineChart"></canvas>
                     </div>
-                    <p class="text-center text-xs text-slate-500 mt-4">Tổng thời gian tương tác xấp xỉ 4 tháng.</p>
+                    <p class="text-center text-xs text-slate-500 mt-4">Tổng thời gian thực hiện xấp xỉ 4 tháng.</p>
                 </div>
             </div>
         </section>
 
         <section id="journey">
-            <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Bản Đồ Chuyển Hóa Ý Thức</h2>
+            <h2 class="text-3xl font-bold text-slate-900 mb-6 text-center">Bản Đồ Phát Triển Chi Tiết</h2>
              <p class="text-center text-slate-600 mb-10 max-w-4xl mx-auto">
-                Đây là con đường 8 điểm cộng hưởng dẫn bạn đến mục tiêu. Mỗi điểm là một giai đoạn chuyển hóa toàn diện, đòi hỏi sự nỗ lực ở nhiều chiều kích. Hãy nhấp vào từng điểm để khám phá các tác động cần thiết, dấu hiệu đạt được và cách vượt qua các thách thức. Hành trình của bạn bắt đầu từ đây.
+                Đây là con đường 8 giai đoạn phát triển dẫn bạn đến mục tiêu. Mỗi giai đoạn là một tập hợp các hành động cần thiết và thay đổi trong tư duy. Hãy nhấp vào từng giai đoạn để khám phá các tác động cần thiết, dấu hiệu hoàn thành và cách vượt qua các thử thách.
             </p>
             <div class="flex flex-col md:flex-row gap-8 lg:gap-12">
                 
-                <div id="timeline-nav" class="w-full md:w-1/3 lg:w-1/4 space-y-2">
-                </div>
+                <nav id="timeline-nav" class="w-full md:w-1/3 lg:w-1/4 space-y-2">
+                </nav>
                 
-                <div id="content-panel" class="w-full md:w-2/3 lg:w-3/4">
-                </div>
+                <main id="content-panel" class="w-full md:w-2/3 lg:w-3/4">
+                </main>
             </div>
         </section>
 
         <footer class="text-center mt-16 pt-8 border-t border-slate-200">
-             <p class="text-slate-500">&copy; 2025 Kiến Trúc Sư Ý Thức Vũ Trụ. Hiện thực hóa tiềm năng vô hạn của bạn.</p>
+             <p class="text-slate-500">&copy; 2025 Lộ Trình Thực Tiễn. Hiện thực hóa tiềm năng của bạn.</p>
         </footer>
     </div>
 
     <script>
         const journeyData = [
             {
-                name: "Điểm 1: Hạt Giống Ý Chí",
-                archetype: "Khởi Kiến Dòng Chảy Ý Thức",
+                name: "Giai Đoạn 1: Đánh Giá & Lập Kế Hoạch Ban Đầu",
                 duration: 7,
-                state: "Giai đoạn khởi đầu, một hạt giống ý chí được gieo vào tâm hồn. Bạn bừng tỉnh với mục tiêu rõ ràng là đạt IELTS 7.0. Ý thức tràn đầy quyết tâm và háo hức, giống như mảnh đất màu mỡ sẵn sàng nuôi dưỡng hạt mầm. Bạn hình dung phiên bản tương lai của mình tự tin sử dụng tiếng Anh, và điều đó thắp lên ngọn lửa động lực đầu tiên.",
-                frequency: "Tần số năng lượng của giai đoạn này rung động mạnh mẽ ở mức khởi động. Đó là rung động cao của sự quyết tâm và lạc quan. Năng lượng này lan tỏa, thu hút những yếu tố cần thiết ban đầu (tài liệu, thời gian, kế hoạch) bắt đầu hội tụ xung quanh bạn.",
-                actions: {
-                    physical: [
-                        "Sắp xếp một góc học tập yên tĩnh, đủ ánh sáng với bàn ghế thoải mái. Đặt tất cả tài liệu IELTS sẵn có, giáo trình cơ bản, flashcard… gọn gàng. Hãy biến nơi này thành “thánh địa” học tập của bạn – một không gian khiến bạn hứng thú và tập trung mỗi khi ngồi vào.",
-                        "Cam kết thời gian: Lập thời gian biểu cố định ~4 giờ mỗi ngày cho việc học (ví dụ 2 giờ buổi sáng, 2 giờ buổi tối). Dán thời gian biểu trước bàn học để tự nhắc nhở và tuân thủ kỷ luật. Coi các buổi học như những cuộc hẹn quan trọng không thể bỏ lỡ.",
-                        "Thực hiện một bài thi thử IELTS đầy đủ (Listening, Reading, Writing, Speaking) trong điều kiện và thời gian thi thật, sử dụng một trong các đề thi trong giáo trình IELTS 6.5 của Prep hoặc bộ Cambridge IELTS. Ghi âm phần thi Nói và lưu bài thi Viết để phân tích."
-                    ],
-                    mental: [
-                        "Xác định rõ mục tiêu và lý do: Viết ra giấy mục tiêu “IELTS 7.0 vào 11/11/2025” cùng những lý do bạn muốn đạt mục tiêu này (tốt nghiệp, cơ hội việc làm, tự tin giao tiếp…). Đặt tờ giấy ở nơi dễ thấy. Mỗi ngày, dành vài phút hình dung bản thân cầm chứng chỉ IELTS 7.0 với niềm vui và tự hào – điều này giúp mục tiêu luôn hiện hữu trong tâm trí.",
-                        "Lập kế hoạch tổng thể 4 tháng: Chia nhỏ mục tiêu lớn thành các mục tiêu theo tháng (ví dụ tháng 1 đạt 4.5, tháng 2 đạt 5.5, tháng 3 đạt 6.5, tháng cuối lên 7.0). Vạch ra các mốc chính và liệt kê tài liệu, kỹ năng sẽ tập trung mỗi giai đoạn. Sử dụng AI (ví dụ ChatGPT) với prompt như: 'Lập kế hoạch học IELTS 4 tháng từ Band 3.0 lên 7.0 cho sinh viên đại học, có khả năng tự học tốt, có giáo trình Prep IELTS 6.5, Zorbi và tài liệu Cambridge IELTS. Phân bổ thời gian và tài liệu cụ thể cho từng tháng.' để kiểm tra lộ trình đã hợp lý chưa."
-                    ],
-                    emotional: [
-                        "Kết nối cảm xúc tích cực với mục tiêu: Mỗi ngày, tưởng tượng chi tiết khoảnh khắc bạn nhận kết quả 7.0 – hình ảnh đó mang lại cho bạn niềm hạnh phúc, tự hào và nhẹ nhõm. Khắc sâu cảm giác ấy để nuôi dưỡng niềm tin rằng bạn sẽ làm được. Đồng thời, nếu có lo lắng hay tự nghi ngờ, hãy nhớ rằng nhiều người đã vươn từ band 3.0 lên 7.0; bạn không hề đơn độc. Chuyển hóa lo lắng thành quyết tâm, coi mỗi phút học là đưa bạn gần mục tiêu hơn."
-                    ],
-                    energetic: [
-                        "Mỗi sáng, dành 5-10 phút thiền hít thở sâu, tập trung vào hình ảnh mục tiêu và câu khẳng định tích cực (affirmation) như: “Mình đang tiến gần đến IELTS 7.0 mỗi ngày.” Hít vào tưởng tượng năng lượng vũ trụ đang tràn vào người tiếp sức cho bạn; thở ra đẩy mọi nghi ngại ra ngoài. Thói quen này giúp cân bằng năng lượng, tăng cường tập trung và duy trì rung động tích cực trước khi bắt đầu ngày mới."
-                    ],
-                    social: [
-                        "Chia sẻ mục tiêu với ít nhất một người thân hoặc bạn bè đáng tin cậy. Nói với họ về kế hoạch IELTS 7.0 của bạn và ngày mục tiêu 11/11/2025. Nhờ họ thường xuyên hỏi thăm tiến độ, động viên khi bạn mệt mỏi. Sự cam kết công khai này tạo áp lực tích cực, giúp bạn có trách nhiệm hơn với mục tiêu. Đồng thời, nhận được sự ủng hộ từ người khác sẽ khiến bạn vững tâm hơn trên hành trình dài."
-                    ]
+                state: "Bạn nhận thức rõ ràng trình độ tiếng Anh hiện tại của mình, không có sự phủ nhận hay đánh giá tiêu cực. Bạn tập trung vào việc thu thập thông tin khách quan để lên kế hoạch.",
+                tendencies: "Tập trung vào việc thu thập dữ liệu, phân tích thông tin, và lên kế hoạch có cấu trúc. Có xu hướng tìm kiếm sự hỗ trợ và hướng dẫn ban đầu.",
+                impact: {
+                    mindset: "Chấp nhận điểm xuất phát (Band 3.0) là một điểm dữ liệu, không phải là thước đo giá trị bản thân. Tin tưởng vào khả năng tự học và coi AI là công cụ hỗ trợ mạnh mẽ.",
+                    actions: {
+                        physical: [
+                            "**Sắp xếp không gian học tập:** Dọn dẹp bàn học, đảm bảo đủ ánh sáng tự nhiên hoặc đèn học. Sắp xếp tất cả tài liệu IELTS (giáo trình Prep IELTS, bộ Cambridge IELTS 6-20, English Grammar in Use, v.v.) gọn gàng trên kệ hoặc trong ngăn kéo, dễ dàng lấy ra khi cần. Chuẩn bị sẵn bút, giấy nháp, tai nghe chuyên dụng cho việc học.",
+                            "**Thực hiện thi thử:** In một đề thi IELTS đầy đủ từ bộ Cambridge IELTS (ví dụ: Cambridge IELTS 6) hoặc từ giáo trình Prep IELTS 6.5. Tìm một không gian yên tĩnh, không bị làm phiền. Chuẩn bị đồng hồ bấm giờ và thực hiện bài thi (Listening: 30 phút, Reading: 60 phút, Writing: 60 phút) trong điều kiện và thời gian thi thật.",
+                            "**Ghi âm & Lưu bài:** Sử dụng điện thoại hoặc máy ghi âm để ghi âm toàn bộ phần thi Nói (Speaking) của bạn. Sau khi hoàn thành phần thi Viết (Writing), chụp ảnh hoặc scan bài viết để lưu lại dưới dạng file điện tử.",
+                            "**Lập thời gian biểu:** Lập một thời gian biểu học tập chi tiết trên giấy hoặc ứng dụng lịch (ví dụ: Google Calendar). Đặt các khung giờ cố định khoảng 4 giờ mỗi ngày (ví dụ: 8:00 AM - 10:00 AM và 7:00 PM - 9:00 PM). In và dán thời gian biểu này ở nơi bạn dễ nhìn thấy nhất (trước bàn học, trên tủ lạnh)."
+                        ],
+                        mental: [
+                            "Sau khi làm bài thi thử, tự chấm điểm và phân tích kỹ lưỡng kết quả theo từng kỹ năng và từng tiêu chí chấm điểm IELTS.",
+                            "Sử dụng AI (ChatGPT) để hỗ trợ phân tích với prompt cụ thể cho Writing và Speaking để nhận điểm ước tính và phản hồi chi tiết.",
+                            "Viết ra giấy mục tiêu \"Đạt IELTS 7.0 vào ngày 22/11/2025\" cùng 3-5 lý do cụ thể và ý nghĩa nhất đối với bạn.",
+                            "Lập kế hoạch tổng thể 4 tháng, chia nhỏ mục tiêu theo tháng và sử dụng AI để phác thảo lộ trình chi tiết với các tài liệu bạn có."
+                        ],
+                        emotional: [
+                            "Chấp nhận mọi cảm xúc (lo lắng, thất vọng) phát sinh từ kết quả thi thử mà không phán xét.",
+                            "Thực hành hít thở sâu 5 phút mỗi sáng (ví dụ: hít vào 4 giây, giữ 4 giây, thở ra 6 giây) để ổn định tâm trí."
+                        ],
+                        energetic: [
+                            "Thiết lập một \"nghi thức\" học tập hàng ngày: ví dụ, trước khi học, nhắm mắt và hình dung mục tiêu Band 7.0 rõ ràng trong 1 phút."
+                        ],
+                        social: [
+                            "Thông báo mục tiêu IELTS 7.0 và ngày thi cho một người thân hoặc bạn bè đáng tin cậy để nhận sự động viên."
+                        ]
+                    }
                 },
-                resonance: "Việc nhận thức rõ ràng trạng thái hiện tại là bước đầu tiên để tạo ra một 'lực hút' hướng tới trạng thái mục tiêu. Dữ liệu chi tiết từ bài kiểm tra chẩn đoán sẽ cung cấp 'tọa độ' cần thiết, cho phép Thuật thuật toán Lan truyền Ngược xác định con đường hiệu quả nhất.",
-                signs: ["Có bản đánh giá chi tiết, khách quan về năng lực.", "Cảm thấy bình tĩnh và chấp nhận điểm xuất phát.", "Có lịch trình học tập sơ bộ được phác thảo."],
-                risks: {
-                    risk: "Choáng ngợp bởi khoảng cách lớn giữa Band 3.0 và 7.0, dẫn đến nản lòng.",
-                    solution: "Chia nhỏ mục tiêu lớn thành các điểm cộng hưởng nhỏ hơn, tập trung vào từng bước. Nhắc nhở bản thân rằng sai sót là chất xúc tác cho sự tiến hóa."
+                link: "Việc đánh giá chính xác trình độ hiện tại và có một kế hoạch rõ ràng sẽ tạo nền tảng vững chắc. Dữ liệu thu thập được giúp bạn biết mình cần tập trung vào đâu, từ đó định hướng việc xây dựng kiến thức cơ bản một cách hiệu quả.",
+                signs: ["Có bản đánh giá chi tiết, khách quan về điểm mạnh/yếu IELTS của bạn.", "Cảm thấy bình tĩnh và chấp nhận điểm xuất phát, không còn lo lắng quá mức.", "Có lịch trình học tập 4 tháng chi tiết và đã bắt đầu tuân thủ các buổi học đầu tiên."],
+                challenges: {
+                    challenge: "Cảm giác choáng ngợp trước khối lượng tài liệu và mục tiêu lớn, dẫn đến trì hoãn.",
+                    solution: "Bắt đầu với những nhiệm vụ rất nhỏ trong ngày đầu (ví dụ: học 5 từ mới, đọc 1 trang sách ngữ pháp). Dần dần tăng thời lượng và độ khó. Tập trung hoàn thành từng ngày một thay vì nghĩ quá xa."
                 }
             },
             {
-                name: "Điểm 2: Ngọn Lửa Nền Tảng",
-                archetype: "Xây Dựng Cấu Trúc Cơ Bản",
+                name: "Giai Đoạn 2: Xây Dựng Nền Tảng Ngôn Ngữ",
                 duration: 21,
-                state: "Ở giai đoạn này, hạt giống ý chí đã nảy mầm và được nuôi dưỡng bởi ngọn lửa khát khao học hỏi. Bạn bước vào trạng thái ý thức của người học viên chăm chỉ đặt nền móng. Mọi thứ còn mới mẻ nhưng đầy hứng thú – như ngọn lửa nhỏ vừa được thắp lên cần được tiếp nhiên liệu. Bạn nhận ra rằng trước khi chinh phục những kỹ năng cao hơn, mình cần một nền tảng ngôn ngữ vững chắc. Tâm trí bạn tập trung vào việc hấp thu kiến thức cơ bản: ngữ pháp, từ vựng và phát âm. Mỗi khái niệm ngữ pháp nắm được, mỗi từ mới học được đều làm bạn phấn chấn, vì đó là viên gạch đầu tiên xây nên tòa tháp ngôn ngữ sau này.",
-                frequency: "Tần số năng lượng giai đoạn này ổn định và ấm áp như lửa than hồng, cháy đều đặn nuôi dưỡng ý thức. Đó là rung động của sự kiên trì và tập trung. Năng lượng toát ra từ bạn lúc này mang sắc thái bền bỉ: mỗi ngày cần mẫn học một ít, tích lũy dần dần. Tần số này cộng hưởng với môi trường học tập xung quanh – bạn bắt đầu yêu thích việc tra cứu, ghi chép, say sưa với những bài học nền tảng mà không còn thấy chán nản.",
-                actions: {
-                    physical: [
-                        "Hoàn thiện kiến thức cơ bản: Sử dụng giáo trình học cơ bản bạn có (hoặc phần 'Basic Grammar/Vocabulary' của khóa Prep IELTS 6.5 nếu có) và đặt mục tiêu hoàn thành toàn bộ giáo trình này trong ~3 tuần. Mỗi ngày, học một bài hoặc một chương mục về ngữ pháp (thì, cấu trúc câu, giới từ, v.v.) và từ vựng cơ bản. Đánh dấu tiến độ hoàn thành từng mục tiêu nhỏ.",
-                        "Tăng cường vốn từ và ôn tập bằng flashcard: Mỗi ngày học 20-30 từ vựng tiếng Anh thông dụng nhất từ giáo trình hoặc các nguồn cơ bản. Tận dụng ứng dụng Zorbi để tạo flashcard cho các từ mới này và ôn tập theo nguyên tắc lặp lại ngắt quãng. Chia từ vựng theo chủ đề cơ bản (gia đình, giáo dục, sở thích, môi trường…) để dễ nhớ hơn. Mỗi tuần, rà soát lại toàn bộ từ đã học để đảm bảo bạn nhớ và sử dụng được chúng.",
-                        "Luyện phát âm và kỹ năng nghe cơ bản: Mỗi ngày dành 15-20 phút luyện phát âm đúng các âm tiếng Anh cơ bản (dùng từ điển Cambridge để nghe mẫu). Đọc to một đoạn văn ngắn hoặc vài câu ví dụ trong giáo trình, tập trung phát âm chuẩn. Nghe các đoạn hội thoại đơn giản (trong sách Basic Listening hoặc trên YouTube cho người mới bắt đầu) rồi nhại lại giọng người bản xứ để vừa luyện nghe vừa luyện nói."
-                    ],
-                    mental: [
-                        "Nắm vững ngữ pháp cốt lõi: Mỗi khi học xong một chủ điểm ngữ pháp, hãy tóm tắt lại quy tắc bằng cách tự viết một vài ví dụ và bài tập nhỏ. Ví dụ, sau khi học về thì Quá khứ đơn, hãy viết 5 câu kể về hôm qua của bạn. Sử dụng AI (ChatGPT) với prompt như: 'Giải thích thì quá khứ đơn và cho 5 bài tập điền từ/viết câu.' để củng cố kiến thức. Treo trước bàn một sơ đồ tư duy các chủ điểm ngữ pháp chính.",
-                        "Tư duy bằng tiếng Anh ở mức cơ bản: Bắt đầu tập chuyển đổi suy nghĩ sang tiếng Anh cho những việc hàng ngày. Thí dụ: khi nhìn thấy một đồ vật, thử gọi tên và miêu tả nó bằng tiếng Anh trong đầu; hoặc tự nói thầm lịch trình hôm nay của bạn bằng tiếng Anh đơn giản (“Today I go to school, then I study 2 hours…”). Điều này xây dựng liên kết tư duy trực tiếp với tiếng Anh, giảm dần thói quen dịch từ tiếng Việt."
-                    ],
-                    emotional: [
-                        "Biến học thành niềm vui: Thay vì coi việc học từ vựng, ngữ pháp là nghĩa vụ, hãy tìm cách làm nó thú vị. Ví dụ: biến việc học từ mới thành trò chơi – mỗi tối tự đố mình hay nhờ bạn kiểm tra xem nhớ được bao nhiêu từ đã học trong ngày và thưởng cho mình nếu nhớ tốt. Bạn cũng có thể xen kẽ việc học bằng cách nghe một bài hát tiếng Anh dễ hiểu, xem một đoạn phim hoạt hình ngắn tiếng Anh để giải trí kết hợp học."
-                    ],
-                    energetic: [
-                        "Giữ thân – tâm tràn đầy năng lượng: Đảm bảo bạn ngủ đủ 7-8 tiếng mỗi đêm để não bộ có thời gian củng cố ký ức. Song song, duy trì vận động nhẹ như đi bộ, tập thể dục 15-30 phút mỗi ngày. Cơ thể khỏe sẽ cung cấp năng lượng bền bỉ cho trí não học tập. Hãy nghĩ rằng mỗi lần bạn vận động, năng lượng tích cực lại luân chuyển, giúp bộ não tỉnh táo hấp thu nền tảng kiến thức tốt hơn."
-                    ],
-                    social: [
-                        "Kết nối để giải đáp thắc mắc: Khi tự học, chắc chắn sẽ có lúc bạn bí một điểm ngữ pháp khó hoặc không hiểu nghĩa một cụm từ. Đừng ngần ngại hỏi người khác: Tham gia một diễn đàn hoặc nhóm Facebook dành cho người luyện IELTS từ mức cơ bản, đặt câu hỏi khi cần. Nếu có bạn bè cùng trình độ, hãy thỉnh thoảng học nhóm – cùng nhau trao đổi về bài học sẽ giúp cả hai hiểu sâu hơn và động viên nhau vượt qua giai đoạn đầu đầy thử thách."
-                    ]
+                state: "Bạn tập trung vào việc hấp thụ kiến thức cơ bản (ngữ pháp, từ vựng, phát âm) một cách có hệ thống. Bạn nhận ra tầm quan trọng của nền tảng vững chắc cho các kỹ năng nâng cao.",
+                tendencies: "Có kỷ luật trong việc học các kiến thức nền tảng, thực hành lặp đi lặp lại, và tìm kiếm sự giải thích rõ ràng cho các khái niệm.",
+                impact: {
+                    mindset: "Coi mỗi khái niệm ngữ pháp hay từ mới học được là một viên gạch quan trọng. Tin rằng sự tích lũy nhỏ hàng ngày sẽ tạo ra tiến bộ lớn.",
+                    actions: {
+                        physical: [
+                            "**Ngữ pháp:** Mỗi ngày, dành 1-1.5 giờ để học 1-2 bài ngữ pháp từ giáo trình \"English Grammar in Use (Raymond Murphy)\" (bắt đầu từ các chủ điểm cơ bản như thì, cấu trúc câu, giới từ). Đánh dấu các bài đã hoàn thành trong sách. Hoặc theo phần \"Basic Grammar/Vocabulary\" trong khóa Prep IELTS 6.5.",
+                            "**Từ vựng:** Mỗi ngày, dành 30-45 phút để học 20-30 từ vựng tiếng Anh thông dụng nhất từ danh sách \"Oxford 3000\" hoặc các từ vựng cơ bản theo chủ đề trên \"ielts-up.com\" (ví dụ: Family, Education, Hobbies).",
+                            "**Flashcard:** Ngay sau khi học từ vựng và ngữ pháp mới, mở ứng dụng Zorbi. Tạo flashcard cho từng từ mới (kèm theo ví dụ, hình ảnh nếu có), cụm từ, và các cấu trúc ngữ pháp quan trọng. Ôn tập flashcard trên Zorbi hàng ngày theo lịch trình lặp lại ngắt quãng của ứng dụng (thường là 15-20 phút/ngày).",
+                            "**Phát âm:** Dành 15-20 phút mỗi ngày. Mở sách \"Ship or Sheep?\" và ứng dụng \"Elsa Speak\". Luyện tập phát âm đúng từng âm (ví dụ: /ɪ/ và /i:/, /θ/ và /ð/). Sau đó, đọc to một đoạn văn ngắn hoặc vài câu ví dụ trong giáo trình, tập trung phát âm chuẩn từng từ và ngữ điệu câu.",
+                            "**Nghe cơ bản:** Dành 15-20 phút mỗi ngày. Mở các đoạn hội thoại đơn giản trong sách Basic Listening hoặc trên kênh YouTube \"English for Beginners\". Nghe và sau đó nhại lại (shadowing) giọng người bản xứ, cố gắng bắt chước ngữ điệu và tốc độ nói."
+                        ],
+                        mental: [
+                            "Sau mỗi chủ điểm ngữ pháp, tự tóm tắt quy tắc bằng 3-5 gạch đầu dòng và viết 5-10 câu ví dụ của riêng bạn.",
+                            "Sử dụng AI (ChatGPT) để củng cố ngữ pháp: \"Giải thích thì [tên thì] và cho 5 bài tập điền từ/viết câu.\"",
+                            "Bắt đầu tập tư duy bằng tiếng Anh cho những việc hàng ngày."
+                        ],
+                        emotional: [
+                            "Biến việc học thành niềm vui: Tự thưởng khi hoàn thành mục tiêu nhỏ (ví dụ: xem một đoạn phim hoạt hình ngắn tiếng Anh)."
+                        ],
+                        energetic: [
+                            "Đảm bảo ngủ đủ 7-8 tiếng mỗi đêm.",
+                            "Duy trì vận động nhẹ (đi bộ nhanh, tập thể dục tại chỗ) 15-30 phút mỗi ngày."
+                        ],
+                        social: [
+                            "Tham gia các diễn đàn hoặc nhóm Facebook dành cho người luyện IELTS từ mức cơ bản để hỏi đáp thắc mắc.",
+                            "Nếu có bạn bè cùng trình độ, thỉnh thoảng học nhóm để trao đổi bài học và động viên nhau."
+                        ]
+                    }
                 },
-                resonance: "Ngọn Lửa Nền Tảng cung cấp nhiên liệu kiến thức cho hành trình của bạn. Nền móng ngôn ngữ vững chắc này bắt đầu rung động cộng hưởng với mục tiêu lớn hơn. Sự hiểu biết căn bản và thói quen học tập chăm chỉ hình thành ở giai đoạn 2 sẽ truyền động lực sang giai đoạn 3. Khi kiến thức cơ bản đã vững, bạn sẽ tự tin bước tiếp để hình thành thói quen học tập bền vững mỗi ngày mà không còn cảm thấy quá sức. Ngọn lửa nhỏ giờ cháy ổn định, soi đường cho bạn tiến vào chặng tiếp theo: biến việc học thành một phần tự nhiên của cuộc sống hàng ngày.",
-                signs: ["Bạn đã hoàn thành giáo trình cơ bản: nắm vững các thì chính (hiện tại, quá khứ, tương lai), cấu trúc câu đơn giản, câu hỏi, câu phủ định… Những điểm ngữ pháp nền tảng giờ đây bạn có thể nhớ và áp dụng mà không cần liên tục tra sách.", "Bạn đã tích lũy được khoảng 1000 từ vựng thông dụng. Khi xem một đoạn hội thoại đơn giản, bạn nhận ra mình hiểu phần lớn các từ cơ bản; khi cần diễn đạt ý đơn giản, bạn tìm được từ phù hợp mà trước đây không biết.", "Kỹ năng phát âm tiến bộ: Bạn biết cách phát âm chuẩn hầu hết các âm tiếng Anh và trọng âm một số từ cơ bản. Khi đọc to đoạn văn ngắn, bạn đã tự tin hơn, không còn ngại miệng; người nghe có thể hiểu được bạn nói gì (dù còn chậm).", "Bạn bắt đầu hiểu tiếng Anh trong môi trường thực: Ví dụ, xem một video ngắn có phụ đề song ngữ, bạn có thể hiểu nội dung chính mà không cần nhìn phụ đề mọi lúc. Làm một bài đọc hoặc nghe cơ bản, bạn trả lời đúng được khoảng 40-50% câu hỏi – tương đương trình độ IELTS ~4.0.", "Quan trọng hơn, tư duy kỷ luật và thói quen học của bạn đã định hình: bạn quen với việc học mỗi ngày vài giờ, không còn thấy “khó khăn để bắt đầu” như trước. Giờ đây nếu một ngày không học, bạn cảm giác “thiếu thiếu” – dấu hiệu cho thấy học tiếng Anh đã dần trở thành thói quen."],
-                risks: {
-                    risk: "Sau vài tuần đầu, việc học lặp đi lặp lại kiến thức nền tảng (ngữ pháp, từ vựng) có thể trở nên nhàm chán, dễ làm bạn mất hứng thú.",
-                    solution: "Đa dạng hóa phương pháp học để luôn có yếu tố mới mẻ. Ví dụ, hôm nay bạn học từ vựng bằng flashcard, ngày mai thử học qua ứng dụng game từ vựng; học ngữ pháp qua sách xong có thể tìm video vui về ngữ pháp đó trên YouTube để xem người bản xứ dùng. Tự thưởng cho mình khi hoàn thành mỗi chủ điểm (như nghỉ giải lao xem một clip hài bằng tiếng Anh chẳng hạn). Bằng cách “đổi gió”, bạn sẽ tránh được cảm giác đơn điệu và duy trì được hứng khởi lâu dài."
+                link: "Nền tảng ngữ pháp, từ vựng và phát âm vững chắc là điều kiện tiên quyết để bạn có thể tiếp thu và xử lý thông tin phức tạp hơn ở các kỹ năng nghe và đọc nâng cao. Thói quen học tập đều đặn cũng sẽ được củng cố.",
+                signs: ["Hoàn thành giáo trình ngữ pháp cơ bản và có thể áp dụng các thì chính.", "Tích lũy khoảng 1000 từ vựng thông dụng và nhận ra chúng khi đọc/nghe.", "Phát âm chuẩn hầu hết các âm tiếng Anh cơ bản.", "Có thể hiểu nội dung chính của các đoạn hội thoại/văn bản đơn giản (tương đương IELTS ~4.0).", "Thói quen học 4 giờ/ngày đã được định hình."],
+                challenges: {
+                    challenge: "Việc học lặp đi lặp lại kiến thức nền tảng có thể trở nên nhàm chán.",
+                    solution: "Đa dạng hóa phương pháp học (ứng dụng game từ vựng, video giải thích ngữ pháp vui trên YouTube). Xen kẽ học và giải trí bằng tiếng Anh."
                 }
             },
             {
-                name: "Điểm 3: Quỹ Đạo Thói Quen",
-                archetype: "Củng Cố & Duy Trì Kỷ Luật",
+                name: "Giai Đoạn 3: Củng Cố Thói Quen & Tối Ưu Hóa Tập Trung",
                 duration: 14,
-                state: "Sau khi ngọn lửa nền tảng đã cháy vững, bạn chuyển sang trạng thái ý thức của quỹ đạo thói quen. Giống như một hành tinh đã ổn định quỹ đạo quanh mặt trời, giờ đây việc học tiếng Anh của bạn dần trở thành một phần nhịp sống hàng ngày. Bạn không còn phải “miễn cưỡng” ép mình học, mà tự nhiên mong chờ những khoảng thời gian học tập đã định. Tâm trí bạn bước vào giai đoạn ổn định và kiên định: mỗi ngày lặp lại các hoạt động học (từ vựng, đọc, nghe…) với sự kỷ luật nhưng thoải mái. Bạn bắt đầu cảm nhận được niềm vui nhỏ trong từng bước tiến bộ: hôm nay thuộc thêm được 30 từ, nghe hiểu thêm được một đoạn hội thoại so với tuần trước. Ý thức của bạn đều đặn, vững vàng – không bùng nổ như lúc khởi đầu, mà âm ỉ cháy như một dòng chảy liên tục đưa bạn tiến về phía trước.",
-                frequency: "Tần số năng lượng của giai đoạn này có biên độ ổn định, nhịp nhàng như một sóng hình sin đều đặn. Đó là rung động hài hòa của tính kiên trì và kỷ luật. Mỗi ngày trôi qua, năng lượng học tập của bạn không tăng vọt đột ngột nhưng cũng không tắt lịm – nó duy trì ở mức vừa phải nhưng liên tục. Tần số này tạo ra một trường cộng hưởng ổn định xung quanh bạn: gia đình, bạn bè thấy bạn học đều đặn cũng bắt đầu tôn trọng và hỗ trợ lịch học của bạn; môi trường xung quanh ít dần những xao lãng vì bạn đã quen nề nếp.",
-                actions: {
-                    physical: [
-                        "Duy trì khung giờ cố định: Cố gắng giữ nhịp sinh học học tập đều đặn mỗi ngày. Ví dụ, nếu bạn đã quen học 7-9h sáng và 7-9h tối thì hãy duy trì chính xác các khung giờ đó cho suốt 2 tuần này. Cơ thể và não bộ bạn sẽ đồng hồ hóa với lịch học – đến giờ đó tự nhiên thấy tập trung và muốn học. Nếu có ngày bận việc vào giờ thường lệ, hãy bù lại ngay vào thời điểm khác trong ngày để không “phá vỡ chuỗi”.",
-                        "Ghi nhật ký học tập: Mỗi ngày sau khi học xong, hãy dành 5 phút ghi lại vào sổ hoặc ứng dụng những gì bạn đã làm: học bao nhiêu từ, đọc bài gì, kỹ năng nào cải thiện… Viết ra cả cảm nhận: hôm nay học có hiệu quả không, có phân tâm không, bài học nào thú vị nhất. Cuốn nhật ký này giúp bạn theo dõi tiến bộ một cách hữu hình. Đồng thời, nó như một người bạn đồng hành lắng nghe, giúp bạn nhìn lại chặng đường mình đã đi để thêm tự hào hoặc điều chỉnh nếu cần.",
-                        "Tích hợp tiếng Anh vào cuộc sống: Biến tiếng Anh trở thành một phần trong các hoạt động thường nhật ngoài giờ học chính. Ví dụ: trong lúc tập thể dục hoặc làm việc nhà, nghe một podcast tiếng Anh chậm; chuyển điện thoại, máy tính sang giao diện tiếng Anh; dán giấy note ghi từ vựng lên các đồ vật trong nhà (fridge – tủ lạnh, mirror – gương…) để mắt thấy, tai nghe tiếng Anh mọi nơi. Những hành động nhỏ này tạo môi trường ngập tràn tiếng Anh, giúp não bộ bạn tắm trong ngôn ngữ liên tục và hình thành phản xạ tự nhiên."
-                    ],
-                    mental: [
-                        "Áp dụng kỹ thuật Pomodoro để tăng tập trung: Để tránh xao nhãng trong các buổi học kéo dài, bạn có thể dùng phương pháp Pomodoro – học 25 phút tập trung cao độ rồi nghỉ 5 phút, lặp lại chu kỳ 4 lần rồi nghỉ dài 15 phút. Hoặc điều chỉnh thành 50 phút học – 10 phút nghỉ tùy khả năng. Những khoảng nghỉ ngắn xen kẽ giúp não bạn phục hồi mà vẫn giữ được đà. Nhờ đó, suốt 4 giờ học, bạn luôn trong trạng thái tinh thần tỉnh táo, không bị đơ vì quá tải.",
-                        "Tự đánh giá và điều chỉnh mỗi tuần: Cuối mỗi tuần, làm một bài kiểm tra ngắn để đo tiến bộ. Ví dụ: làm một bài đọc IELTS Cambridge ngắn và so sánh số câu đúng với tuần trước; hoặc thu âm câu trả lời Part 2 Speaking cùng một đề so với tuần trước xem nói trôi chảy hơn chưa. Sau đó, xem lại nhật ký học tập tuần qua, đánh giá điều gì hiệu quả, điều gì chưa. Nếu thấy kỹ năng nào còn yếu hoặc thời gian phân bổ chưa hợp lý, điều chỉnh kế hoạch cho tuần tới (tăng thời gian cho kỹ năng yếu, đổi phương pháp học nếu cần). Cách làm này giữ cho bạn luôn chủ động về mặt tinh thần, học có chiến lược chứ không chỉ học thụ động."
-                    ],
-                    emotional: [
-                        "Thưởng – phạt và tạo hứng thú: Để trái tim không mệt mỏi trên chặng đường dài, hãy biết tự thưởng cho mình. Nếu cả tuần bạn theo đúng lịch học không bỏ buổi nào, dành tối Chủ nhật để thư giãn hoàn toàn – xem phim yêu thích (có thể là phim tiếng Anh vừa giải trí vừa luyện nghe), đi ăn món ngon, hoặc gặp gỡ bạn bè. Những phần thưởng nhỏ này giúp bạn tái tạo cảm xúc tích cực và gắn việc học với kết quả ngọt ngào. Ngược lại, nếu tuần nào bạn xao nhãng, hãy “phạt” bằng cách tăng thêm 1 giờ học bù vào tuần sau (nhưng nhớ đừng quá khắt khe). Quản lý cảm xúc bằng hệ thống thưởng phạt sẽ giúp bạn duy trì động lực một cách cân bằng."
-                    ],
-                    energetic: [
-                        "Nghỉ ngơi chủ động trong khi học: Khi học hàng giờ liền mỗi ngày, đừng quên lắng nghe cơ thể. Cứ sau 1 tiếng học, đứng dậy vận động 5 phút: vươn vai, đi lại, nhìn ra xa cho mắt nghỉ. Bạn cũng có thể nhắm mắt hít thở sâu vài lần, cảm nhận năng lượng đang dâng lên trong đầu, sau đó tiếp tục học. Những khoảng nghỉ chủ động này giúp giải tỏa sự mệt mỏi tích tụ, nạp lại năng lượng để phiên học sau vẫn hiệu quả. Nhờ vậy, bạn tránh được kiệt sức, duy trì nhịp học bền bỉ cả ngày."
-                    ],
-                    social: [
-                        "Thiết lập “đối tác học tập”: Tìm một người bạn có mục tiêu tương tự (hoặc chí ít cũng đang cần cải thiện tiếng Anh) để đồng hành. Mỗi ngày, hai người nhắn tin hoặc gọi ngắn với nhau, kiểm tra xem hôm nay đối phương đã học chưa, học gì. Tuần vài lần, có thể hẹn nhau học chung online: cùng ngồi tự học, định giờ 90 phút rồi nghỉ giải lao nói chuyện 10 phút như ở thư viện. Có một buddy như vậy giúp cả hai cùng giữ nhịp – khi bạn mệt có người kéo, khi người kia nản bạn động viên. Tinh thần cùng tiến sẽ làm giai đoạn tạo thói quen bớt đơn độc và thêm vui."
-                    ]
+                state: "Việc học tiếng Anh đã trở thành một phần tự nhiên trong nhịp sống hàng ngày của bạn. Bạn không còn phải ép buộc bản thân mà tự nhiên muốn học. Tâm trí bạn ổn định và kiên định.",
+                tendencies: "Duy trì sự nhất quán, tự theo dõi tiến độ, và chủ động tìm kiếm các phương pháp để tăng cường hiệu quả học tập.",
+                impact: {
+                    mindset: "Tin rằng sự nhất quán quan trọng hơn cường độ. Coi việc học là một quá trình liên tục, không phải là một nhiệm vụ nặng nề.",
+                     actions: {
+                        physical: [
+                           "**Duy trì khung giờ học:** Duy trì khung giờ học cố định (~4 giờ/ngày) đã thiết lập. Đặt báo thức cho các buổi học. Nếu có ngày bận, cố gắng học bù ngay vào thời điểm khác trong ngày.",
+                           "**Ghi nhật ký học tập:** Mua một cuốn sổ nhỏ hoặc dùng ứng dụng ghi chú (Notion, Google Keep). Cuối mỗi buổi học, dành 5 phút ghi lại: số từ mới, bài đã học, kỹ năng cải thiện, cảm nhận chung.",
+                           "**Tích hợp tiếng Anh:** Chuyển ngôn ngữ hiển thị trên điện thoại, máy tính sang tiếng Anh. Dán giấy note ghi từ vựng lên đồ vật trong nhà (ví dụ: 'fridge' trên tủ lạnh). Nghe podcast (BBC Learning English) khi tập thể dục."
+                        ],
+                        mental: ["Áp dụng kỹ thuật Pomodoro (ví dụ: 25 phút học - 5 phút nghỉ) để tăng tập trung.", "Tự đánh giá mỗi tuần bằng bài kiểm tra ngắn và điều chỉnh kế hoạch học cho tuần tới."],
+                        emotional: ["Thiết lập hệ thống thưởng–phạt rõ ràng: tự thưởng khi học đúng lịch (xem phim tiếng Anh), 'phạt' bằng cách học bù nếu xao nhãng."],
+                        energetic: ["Nghỉ ngơi chủ động: Cứ sau 1 giờ học, đứng dậy vận động nhẹ 5 phút (vươn vai, đi lại)."],
+                        social: ["Tìm một 'đối tác học tập' (study buddy). Mỗi ngày, nhắn tin hoặc gọi ngắn để kiểm tra tiến độ của nhau."]
+                    }
                 },
-                resonance: "Quỹ Đạo Thói Quen tạo ra một trường hấp dẫn ổn định xung quanh bạn. Thói quen học đều đặn mỗi ngày đã hình thành sẽ cộng hưởng sang giai đoạn sau bằng cách giải phóng bạn khỏi những nỗ lực ý chí nặng nhọc. Giờ đây, bạn không cần “đấu tranh” để ngồi vào bàn học nữa – điều này giải phóng năng lượng tinh thần để tập trung vào nội dung học nâng cao. Nhịp điệu ổn định giống như một quán tính tốt, cho phép bạn chuyển sang giai đoạn mở rộng kiến thức (đọc nhiều, nghe nhiều hơn) mà không sợ mất đà. Giai đoạn 3 giống như bạn đã vào quỹ đạo vững, sẵn sàng tăng tốc bứt phá trong vũ trụ kiến thức ở các chặng tiếp theo.",
-                signs: ["Bạn đã duy trì lịch học liên tục mỗi ngày trong 2 tuần mà không cảm thấy gượng ép. Nếu lỡ bận một ngày, bạn cũng nhanh chóng bù thời gian vào hôm sau. Thói quen học tập 4 giờ/ngày đã thực sự ăn sâu vào nếp sống của bạn.", "Việc ngồi vào bàn học vào đúng giờ đã đặt ra trở nên tự nhiên như việc ăn sáng, đánh răng. Bạn nhận thấy mình dễ dàng tập trung hơn, không còn mất 10-15 phút đầu buổi học để “lấy động lực” như trước.", "Bạn đã tích lũy tổng cộng khoảng 80-100 giờ học tính từ đầu hành trình. Sức bền tập trung tăng lên: trước đây học 30 phút đã mỏi, nay bạn có thể học 1-2 giờ liên tục mà vẫn tỉnh táo. Não bộ như một cơ bắp đã được rèn luyện dẻo dai hơn.", "Kết quả luyện tập cải thiện: Bài kiểm tra nhỏ cuối mỗi tuần cho thấy tiến bộ. Ví dụ, số câu đúng trong bài đọc hiểu đã tăng từ 5/13 lên 8/13; thời gian hoàn thành một bài nghe hiểu đầy đủ giảm từ 40 phút xuống 30 phút. Những con số này chứng tỏ việc học đều đặn đang có hiệu quả thực sự.", "Bạn bắt đầu yêu thích tiếng Anh: Ngoài giờ học, đôi khi bạn tự bật podcast tiếng Anh nghe lúc nấu ăn, hay mở phụ đề tiếng Anh khi xem phim vì thấy “hay hay”. Đây là dấu hiệu tích cực cho thấy tiếng Anh đã len vào cuộc sống của bạn, chứ không chỉ bó hẹp trong giờ học."],
-                risks: {
-                    risk: "Một sự kiện bất ngờ (thi cuối kỳ ở trường, công việc đột xuất…) khiến bạn bỏ lỡ vài buổi học, có nguy cơ làm chuỗi thói quen bị đứt đoạn.",
-                    solution: "Linh hoạt nhưng không buông lỏng. Nếu có ngày lịch học bị phá vỡ, hãy cố gắng sắp xếp học bù vào thời gian khác trong ngày. Trường hợp phải ngừng học vài ngày liền (do ốm hoặc lịch đặc biệt), đừng tự trách hay bỏ luôn – hãy quay lại nhịp học càng sớm càng tốt. Để tránh gián đoạn kéo dài, có thể giảm cường độ: mỗi ngày bận rộn vẫn cố học ít nhất 30 phút – 1 giờ (ví dụ học từ vựng khi di chuyển, nghe tiếng Anh trước khi ngủ). Như vậy, bạn giữ được liên kết với tiếng Anh ngay cả khi rất bận, và dễ dàng quay lại quỹ đạo đầy đủ sau đó."
+                link: "Thói quen học tập đều đặn và khả năng tập trung được củng cố sẽ giải phóng năng lượng tinh thần, giúp bạn sẵn sàng cho việc mở rộng kiến thức tiếng Anh ở mức độ cao hơn mà không bị quá tải.",
+                signs: ["Duy trì lịch học liên tục mỗi ngày trong 2 tuần mà không cảm thấy gượng ép.", "Dễ dàng tập trung hơn khi ngồi vào bàn học.", "Sức bền tập trung tăng lên (có thể học 1-2 giờ liên tục).", "Kết quả các bài kiểm tra nhỏ hàng tuần cho thấy tiến bộ rõ rệt.", "Bắt đầu yêu thích tiếng Anh, tích hợp vào các hoạt động giải trí."],
+                challenges: {
+                    challenge: "Sự kiện bất ngờ (thi cuối kỳ, công việc) khiến chuỗi thói quen bị đứt đoạn.",
+                    solution: "Linh hoạt nhưng không buông lỏng: cố gắng học bù ngay. Nếu phải ngừng học vài ngày, quay lại nhịp học càng sớm càng tốt. Giảm cường độ (30 phút - 1 giờ/ngày) khi quá bận để giữ liên kết với tiếng Anh."
                 }
             },
             {
-                name: "Điểm 4: Ngân Hà Ngôn Ngữ",
-                archetype: "Mở Rộng & Hấp Thụ Tri Thức",
+                name: "Giai Đoạn 4: Mở Rộng Kiến Thức & Kỹ Năng Tiếp Nhận",
                 duration: 21,
-                state: "Với thói quen học tập đã bền vững, bạn bước vào giai đoạn mở rộng tối đa đầu vào ngôn ngữ – ý thức của bạn như một phi hành gia bắt đầu du hành qua dải ngân hà tri thức. Bây giờ, bạn không còn chỉ hài lòng với những bài học cơ bản nữa, mà khao khát khám phá biển kiến thức tiếng Anh mênh mông ngoài kia. Mỗi ngày, bạn đắm mình trong tiếng Anh qua việc đọc nhiều nội dung hơn, nghe nhiều nguồn đa dạng hơn. Trạng thái ý thức lúc này tràn ngập sự tò mò và hứng khởi: bạn cảm nhận tiếng Anh không chỉ là môn thi mà là cánh cửa mở ra cả thế giới thông tin mới. Dù thỉnh thoảng vẫn gặp từ mới hay bài đọc khó làm bạn choáng ngợp, nhưng bạn không nản – trái lại, bạn thấy như một nhà thám hiểm đứng trước bầu trời đầy sao, càng nhiều điều chưa biết càng thôi thúc bạn học hỏi. Tâm trí mở rộng và kết nối những điều đã học với vô vàn kiến thức mới đang thu nạp.",
-                frequency: "Giai đoạn này năng lượng của bạn dao động ở tần số cao và rộng. Đó là rung động của sự ham hiểu biết và hấp thu mạnh mẽ. Bạn như một ăng-ten lớn bắt được nhiều tần số tiếng Anh cùng lúc: tai nghe, mắt đọc, não xử lý, tất cả hoạt động ở công suất cao nhưng nhịp nhàng. Tần số này khiến bạn lan tỏa sự say mê: có thể bạn bè sẽ thấy bạn thường xuyên cầm sách tiếng Anh, tai đeo tai nghe tiếng Anh – họ nhận ra bạn thực sự nghiêm túc và say sưa. Trường năng lượng học tập của bạn lúc này rất lớn, cuốn bạn vào quỹ đạo học nâng cao một cách tự nhiên và cuốn cả những người nghiêm túc (như các bạn cùng học nhóm, giáo viên) đến hỗ trợ, chia sẻ với bạn.",
-                actions: {
-                    physical: [
-                        "Đọc hiểu chuyên sâu: Mỗi tuần, thực hiện ít nhất 2 bài đọc IELTS hoàn chỉnh từ bộ Cambridge IELTS 5-15 hoặc các bài đọc trong giáo trình Prep IELTS 6.5. Đặt giờ 60 phút như thi thật, làm bài nghiêm túc. Sau đó, dành thời gian phân tích kỹ: tra nghĩa tất cả các từ mới trong bài, đọc giải thích đáp án cho những câu bạn làm sai hoặc chưa chắc. Ghi chú lại các từ vựng học thuật, cấu trúc câu hay gặp.",
-                        "Nghe hiểu đa dạng: Mỗi ngày, dành 30-60 phút luyện nghe tiếng Anh. Kết hợp nhiều nguồn: nghe TED Talks (chọn chủ đề bạn hứng thú, ban đầu có Vietsub rồi chuyển dần sang Engsub rồi không sub); nghe bản tin BBC Learning English, VOA Special English (tốc độ chậm cho người học); xem video hội thoại đời thường trên YouTube. Thực hành nghe chủ động: với mỗi đoạn nghe, sau lần nghe đầu, hãy tạm dừng và thử viết lại những gì hiểu được, sau đó nghe lại lần 2 kiểm tra. Khi nghe, tập trung bắt ý chính trước, đừng quá lo lắng nếu bỏ sót vài từ. Mục tiêu là sau 2-3 tuần, bạn có thể nghe hiểu 70-80% nội dung của các đoạn tiếng Anh nói ở tốc độ tự nhiên.",
-                        "Mở rộng vốn từ vựng học thuật: Bên cạnh từ vựng thông dụng, bây giờ hãy tập trung vào từ vựng theo chủ đề IELTS. Mỗi tuần chọn 2-3 chủ đề (Giáo dục, Môi trường, Công nghệ, Xã hội…), tìm đọc bài báo hoặc xem video ngắn về chủ đề đó và ghi lại các từ/cụm từ quan trọng. Tạo flashcard trên Zorbi cho các từ mới này và ôn tập hàng ngày. Chú ý học từ trong ngữ cảnh: ví dụ thay vì học riêng lẻ “mitigate – giảm nhẹ”, hãy học trong cụm “mitigate the effects of climate change”. Mục tiêu sau 3 tuần, bạn tích lũy thêm được khoảng 500-1000 từ và cụm từ học thuật hữu ích, tạo tiền đề cho kỹ năng Nói và Viết ở band cao."
-                    ],
-                    mental: [
-                        "Chiến thuật đọc hiệu quả: Trong quá trình luyện đọc nâng cao, rèn kỹ năng skim & scan. Trước khi đọc chi tiết, hãy skim lướt qua tiêu đề, đoạn mở đầu để nắm ý chính; đọc câu đầu mỗi đoạn để đoán nội dung đoạn đó. Khi làm bài, tập thói quen gạch chân từ khóa trong câu hỏi, sau đó scan văn bản tìm đoạn chứa từ khóa. Nếu gặp từ mới, đừng vội dừng lại tra ngay, hãy cố đoán nghĩa dựa trên bối cảnh xung quanh trước – kỹ năng này rất quan trọng vì trong phòng thi bạn không có từ điển! Sử dụng AI với prompt như: 'Phân tích bài đọc IELTS này và chỉ ra các từ khóa, ý chính, và cách tìm câu trả lời cho dạng True/False/Not Given.'",
-                        "Chiến thuật nghe thông minh: Khi luyện nghe, hãy tập trung rèn trí nhớ ngắn hạn và khả năng dự đoán. Trước mỗi bài nghe, đọc trước câu hỏi (đặc biệt ở dạng điền từ) và dự đoán loại thông tin cần điền (số, tên riêng, danh từ…); điều này giúp não bạn tạo sẵn “mỏ neo” để khi nghe dễ bắt được thông tin. Trong khi nghe, nếu lỡ bỏ qua một chỗ, không hoảng loạn, đánh dấu để sau đó đoán hoặc nghe lại. Sau mỗi bài nghe, thử nhớ lại và kể lại nội dung chính vừa nghe bằng tiếng Anh – cách này rèn tư duy tóm tắt và kiểm tra mức độ hiểu của bạn đến đâu. Sử dụng AI với prompt: 'Tạo bài tập nghe điền từ cho đoạn audio này và cung cấp script.'."
-                    ],
-                    emotional: [
-                        "Giữ vững sự hứng khởi trước thử thách: Đối diện với những bài đọc học thuật dài hoặc audio nhanh, đôi lúc bạn thấy choáng ngợp và dễ nản. Hãy nhắc nhở bản thân rằng mỗi bài khó là một cơ hội để bạn tiến bộ vượt bậc. Thay vì nghĩ “Ôi dở quá, không hiểu gì cả”, hãy nghĩ “Thú vị đây, chắc chắn mình sẽ học được nhiều từ bài này”. Tự động viên: cảm giác khó khăn hiện tại chính là dấu hiệu bạn đang bước ra khỏi vùng an toàn để vươn tới trình độ cao hơn. Duy trì thái độ tích cực và kiên nhẫn, coi mỗi trở ngại như một câu đố đang chờ được giải. Khi vượt qua được, bạn sẽ càng thêm tự tin."
-                    ],
-                    energetic: [
-                        "Quản lý năng lượng trí não: Học cường độ cao dễ khiến đầu óc căng thẳng, nên bạn cần phương pháp để nạp lại năng lượng giữa chừng. Ví dụ, sau một buổi sáng đọc và nghe miệt mài, hãy dành buổi chiều hoạt động thư giãn: đi dạo, tập yoga hoặc nghe nhạc không lời. Tránh học nặng cả ngày kẻo “bội thực” thông tin. Bạn cũng có thể học xen kẽ nhẹ – nặng: sau khi hoàn thành một bài đọc/nghe khó, tự thưởng 15 phút xem một video tiếng Anh hài hước hoặc một bài hát yêu thích. Việc điều hòa này giúp não bạn có thời gian hấp thu kiến thức và hồi phục, đảm bảo năng lượng học tập luôn dồi dào và tích cực, không bị stress quá mức."
-                    ],
-                    social: [
-                        "Chia sẻ và thảo luận để hiểu sâu: Khi bạn đọc được một bài báo hay, hoặc nghe một bài nói truyền cảm hứng, hãy mang nó đến cộng đồng học tập của bạn. Chia sẻ tóm tắt nội dung và những từ/cụm mới học được lên nhóm học IELTS, hoặc kể với bạn học, người thân quan tâm. Mời mọi người thảo luận về chủ đề đó (bằng tiếng Anh hoặc tiếng Việt tùy hoàn cảnh). Việc dạy lại hoặc giải thích cho người khác sẽ giúp bạn hiểu sâu hơn những gì đã học, nhớ từ vựng lâu hơn và phát hiện thêm góc nhìn mới. Đồng thời, bạn cũng mở rộng kết nối với cộng đồng, có thể nhận được tài liệu hay gợi ý bổ sung từ họ cho chủ đề bạn quan tâm."
-                    ]
+                state: "Bạn khao khát khám phá biển kiến thức tiếng Anh mênh mông, không còn chỉ hài lòng với kiến thức cơ bản. Tâm trí mở rộng, sẵn sàng kết nối những điều đã học với vô vàn thông tin mới.",
+                tendencies: "Chủ động tìm kiếm các nguồn tài liệu đa dạng, thực hành kỹ năng đọc/nghe chuyên sâu, và tích cực mở rộng vốn từ vựng học thuật.",
+                impact: {
+                    mindset: "Coi mỗi bài đọc/nghe khó là một cơ hội để tiến bộ vượt bậc. Tin vào khả năng suy luận và đoán nghĩa từ mới dựa trên ngữ cảnh.",
+                    actions: {
+                        physical: [
+                            "**Đọc hiểu chuyên sâu:** Mỗi tuần, thực hiện ít nhất 2 bài đọc IELTS hoàn chỉnh (3 đoạn văn, 40 câu hỏi) từ bộ Cambridge IELTS 6-20 hoặc các bài đọc trong giáo trình Prep IELTS 6.5, \"Collins Reading for IELTS\", \"15 Days Practice for Reading\". Đặt giờ 60 phút như thi thật.",
+                            "**Phân tích bài đọc:** Sau khi đọc, dành 1-1.5 giờ để phân tích kỹ: tra nghĩa tất cả từ mới, đọc giải thích đáp án. Ghi chú từ vựng, cụm từ, cấu trúc câu hay vào sổ tay hoặc Zorbi.",
+                            "**Nghe hiểu đa dạng:** Mỗi ngày, dành 30-60 phút luyện nghe tiếng Anh. Kết hợp nhiều nguồn: TED Talks (bắt đầu với Vietsub, sau đó Engsub, rồi không sub), BBC Learning English, VOA Learning English, Breaking News English.",
+                            "**Nghe chủ động:** Với mỗi đoạn nghe (5-10 phút), sau lần nghe đầu, tạm dừng và thử viết lại những gì hiểu được. Sau đó nghe lại lần 2 để kiểm tra và bổ sung.",
+                            "**Từ vựng học thuật:** Mỗi tuần chọn 2-3 chủ đề IELTS trên \"ielts-up.com\". Đọc bài báo hoặc xem video về chủ đề đó và ghi lại từ/cụm từ quan trọng. Tạo flashcard trên Zorbi và ôn tập hàng ngày."
+                        ],
+                        mental: ["Rèn kỹ năng skim & scan trong đọc.", "Sử dụng AI để phân tích bài đọc, chỉ ra từ khóa, ý chính.", "Rèn trí nhớ ngắn hạn và khả năng dự đoán trong nghe.", "Sử dụng AI để tạo bài tập nghe điền từ."],
+                        emotional: ["Giữ vững sự hứng khởi trước thử thách. Coi trở ngại như một câu đố đang chờ được giải."],
+                        energetic: ["Quản lý năng lượng trí não: Sau buổi sáng học nặng, dành buổi chiều hoạt động thư giãn. Học xen kẽ nhẹ – nặng."],
+                        social: ["Chia sẻ tóm tắt nội dung và từ mới học được lên nhóm học IELTS hoặc với bạn học.", "Tìm kiếm nguồn nghe/đọc có nhiều giọng điệu khác nhau (Anh, Mỹ, Úc, Canada)."]
+                    }
                 },
-                resonance: "Giai đoạn Ngân Hà Ngôn Ngữ mở ra bầu trời tri thức mênh mông, giúp bạn tích lũy một lượng kiến thức và ngôn ngữ đồ sộ. Nguồn vốn từ vựng phong phú và khả năng nghe hiểu, đọc hiểu nâng cao này sẽ cộng hưởng mạnh mẽ sang giai đoạn kế tiếp. Nhờ đã “thu nạp” rất nhiều đầu vào, bạn sẽ tự tin bước sang giai đoạn “đầu ra” – nơi bạn biến những gì đã học thành kỹ năng nói và viết trôi chảy. Hãy hình dung giai đoạn 4 như bạn gom góp thật nhiều ngôi sao sáng (từ vựng, ý tưởng, kiến thức nền tảng) vào dải ngân hà của mình. Khi chuyển sang giai đoạn 5, bạn sẽ dùng chính những ngôi sao đó để vẽ nên “vũ điệu ngôn từ” rực rỡ. Sự phong phú về hiểu biết ở giai đoạn 4 đảm bảo rằng bạn sẽ không cạn ý tưởng khi nói và viết, mà ngược lại, có dư chất liệu để tỏa sáng ở các kỹ năng sản xuất ngôn ngữ.",
-                signs: ["Khả năng đọc cải thiện vượt bậc: Bạn có thể hoàn thành một bài đọc IELTS trong ~20 phút (so với trước đây 30-40 phút) nhờ luyện tập. Số câu trả lời đúng tăng lên đáng kể: từ mức 15/40 câu đúng ban đầu lên 25-30/40 câu. Bạn hiểu rõ hầu hết ý chính và nhiều chi tiết của bài đọc, chỉ còn vài từ rất chuyên ngành mới gây khó khăn.", "Nghe hiểu tự tin hơn: Bạn nhận thấy mình có thể theo kịp nội dung các bản tin thời sự chậm hoặc video học thuật (TED đơn giản) mà không cần phụ đề. Kết quả bài nghe thử IELTS gần đây của bạn đạt khoảng 6.0-6.5 (tương đương 23-30/40 câu đúng) – một sự tiến bộ rõ rệt. Đặc biệt, bạn ít bị “lọt” mất câu trả lời hơn trước, và nếu có bỏ sót, bạn có kỹ thuật đoán từ dựa vào ngữ cảnh.", "Vốn từ vựng học thuật phong phú: Sau 3 tuần, bạn đã tích lũy thêm hàng trăm từ và cụm từ mới. Khi gặp lại các từ này trong bài đọc hoặc nghe khác, bạn nhận ra chúng ngay và hiểu nghĩa. Bạn cũng có thể chủ động dùng được nhiều từ/cụm trong số đó khi nói hoặc viết."],
-                risks: {
-                    risk: "Sau một thời gian học cường độ cao, bạn có thể cảm thấy kiệt sức, mất tập trung hoặc khó tiếp thu thêm kiến thức mới.",
-                    solution: "Dành thời gian nghỉ ngơi chủ động: cứ sau 1-2 giờ học, hãy đứng dậy đi lại, uống nước, hoặc nhắm mắt thư giãn 5-10 phút. Đảm bảo ngủ đủ giấc và duy trì chế độ ăn uống lành mạnh. Nếu cảm thấy quá tải, hãy giảm bớt thời lượng học trong 1-2 ngày, tập trung vào các hoạt động thư giãn để tái tạo năng lượng. Quan trọng là không bỏ cuộc, chỉ cần điều chỉnh nhịp độ."
+                link: "Việc tích lũy lượng lớn kiến thức và ngôn ngữ từ việc đọc/nghe chuyên sâu sẽ cung cấp \"nguyên liệu\" phong phú cho kỹ năng nói và viết. Khả năng hiểu sâu và rộng sẽ giúp bạn tự tin hơn khi diễn đạt ý tưởng phức tạp.",
+                signs: ["Hoàn thành bài đọc IELTS trong ~20 phút, số câu đúng đạt 25-30/40.", "Nghe hiểu tự tin hơn, theo kịp bản tin thời sự chậm không cần phụ đề.", "Kết quả bài nghe thử IELTS đạt khoảng 6.0-6.5.", "Tích lũy thêm hàng trăm từ và cụm từ học thuật mới."],
+                challenges: {
+                    challenge: "Kiệt sức, mất tập trung hoặc khó tiếp thu thêm kiến thức mới sau thời gian học cường độ cao.",
+                    solution: "Dành thời gian nghỉ ngơi chủ động (đứng dậy đi lại, uống nước, thư giãn 5-10 phút sau mỗi 1-2 giờ học). Đảm bảo ngủ đủ giấc và duy trì chế độ ăn uống lành mạnh."
                 }
             },
             {
-                name: "Điểm 5: Vũ Điệu Ngôn Từ",
-                archetype: "Kích Hoạt & Biểu Đạt Sáng Tạo",
+                name: "Giai Đoạn 5: Phát Triển Kỹ Năng Sản Xuất (Nói & Viết)",
                 duration: 21,
-                state: "Với kho tàng kiến thức đã thu nạp từ Ngân Hà Ngôn Ngữ, bạn bước vào giai đoạn biến chúng thành những vũ điệu ngôn từ sống động. Ý thức của bạn giờ đây tập trung vào việc kích hoạt khả năng sản xuất ngôn ngữ – nói và viết. Bạn không còn chỉ là người tiếp nhận mà trở thành người kiến tạo, tự tin thể hiện ý tưởng, quan điểm bằng tiếng Anh một cách trôi chảy và mạch lạc. Dù có thể còn vấp váp đôi chút, nhưng bạn cảm nhận được sự tự do khi ngôn ngữ tuôn chảy từ bên trong.",
-                frequency: "Tần số năng lượng ở giai đoạn này rung động mạnh mẽ ở mức biểu đạt và sáng tạo. Đó là rung động của sự tự tin, linh hoạt và khả năng kết nối ý tưởng. Năng lượng này lan tỏa ra bên ngoài, biến những kiến thức thụ động thành hành động ngôn ngữ chủ động. Bạn cảm thấy hưng phấn khi có thể diễn đạt những điều mình nghĩ, biến ngôn ngữ thành công cụ mạnh mẽ trong tay mình.",
-                actions: {
-                    physical: [
-                        "Luyện Viết chuyên sâu: Mỗi tuần viết ít nhất 2 bài Task 2 (essay) và 1 bài Task 1 (report/letter) theo đề IELTS từ bộ Cambridge hoặc giáo trình Prep IELTS 6.5. Tập trung vào cấu trúc bài, cách phát triển ý tưởng, sử dụng ngữ pháp phức tạp và từ vựng học thuật đã học. Đặt giờ nghiêm túc như thi thật (~40 phút cho Task 2, ~20 phút cho Task 1).",
-                        "Luyện Nói hàng ngày: Mỗi ngày dành 30-45 phút luyện nói. Ghi âm lại phần nói của mình (đặc biệt là Part 2 và Part 3) để tự nghe lại, phát hiện lỗi phát âm, ngữ điệu, và độ trôi chảy. Tự trả lời các câu hỏi IELTS Speaking Part 1, 2, 3 về nhiều chủ đề khác nhau, cố gắng mở rộng câu trả lời và đưa ra ví dụ."
-                    ],
-                    mental: [
-                        "Sử dụng AI làm 'giám khảo ảo' và 'người hướng dẫn viết': Dùng AI (ChatGPT) với prompt như: 'Tạo dàn ý cho bài IELTS Writing Task 2 về chủ đề [chủ đề của bạn] và gợi ý từ vựng nâng cao.' Hoặc 'Kiểm tra ngữ pháp và gợi ý cách cải thiện cho đoạn văn này.' Đối với Speaking, yêu cầu AI đặt câu hỏi và đánh giá phần trả lời của bạn, giúp bạn luyện phản xạ và tự tin hơn. Ví dụ prompt: 'Đóng vai giám khảo IELTS Speaking và hỏi tôi các câu hỏi Part 2 về [chủ đề của bạn]. Sau đó, cho tôi phản hồi chi tiết về độ trôi chảy, ngữ pháp, từ vựng và phát âm.'",
-                        "Học cách 'phát triển ý tưởng' và 'lập luận chặt chẽ': Khi nói và viết, hãy tập trung vào việc mở rộng câu trả lời, đưa ra ví dụ cụ thể, giải thích lý do và kết nối các ý tưởng một cách logic. Tránh trả lời quá ngắn gọn hoặc chung chung. Đọc các bài mẫu Band 7.0+ từ giáo trình Prep hoặc các nguồn đáng tin cậy để học cách họ phát triển ý tưởng."
-                    ],
-                    emotional: [
-                        "Giảm bớt áp lực 'phải nói/viết hoàn hảo': Chấp nhận rằng sai sót là một phần của quá trình học. Thay vì lo lắng về lỗi, hãy tập trung vào việc truyền đạt ý tưởng một cách tự nhiên và trôi chảy. Mỗi khi mắc lỗi, coi đó là dữ liệu để cải thiện, không phải là thất bại. Tự động viên bản thân bằng cách ghi nhận những tiến bộ nhỏ trong khả năng diễn đạt."
-                    ],
-                    energetic: [
-                        "Tập trung vào 'flow' ngôn ngữ: Khi nói, hãy cố gắng duy trì dòng chảy liên tục, sử dụng các từ nối (connectives) và dấu hiệu diễn ngôn (discourse markers) để bài nói/viết mạch lạc. Hình dung ngôn ngữ như một dòng sông đang chảy, và bạn là người điều khiển dòng chảy đó. Thực hành nói trước gương để tăng cường sự tự tin và cảm nhận năng lượng khi ngôn ngữ tuôn ra.",
-                        "Tái tạo năng lượng sáng tạo: Sau những buổi luyện tập cường độ cao, dành thời gian cho các hoạt động sáng tạo khác (vẽ, nghe nhạc, viết nhật ký) để giúp tâm trí thư giãn và nạp lại năng lượng cho khả năng biểu đạt ngôn ngữ."
-                    ],
-                    social: [
-                        "Thực hành nói chuyện với AI hoặc bạn học: Nếu có thể, tìm một bạn học cùng trình độ hoặc một người bản xứ để luyện nói. Tham gia các câu lạc bộ tiếng Anh hoặc các buổi trao đổi ngôn ngữ để có cơ hội thực hành trong môi trường thực tế, nhận phản hồi và học hỏi từ người khác.",
-                        "Trao đổi bài viết để nhận phản hồi: Gửi bài viết của bạn cho bạn học, giáo viên hoặc AI để nhận phản hồi. Học cách tiếp nhận phê bình một cách xây dựng và sử dụng nó để cải thiện."
-                    ]
+                state: "Bạn tập trung vào việc biến kiến thức ngôn ngữ đã thu nạp thành khả năng diễn đạt ý tưởng một cách trôi chảy, mạch lạc và chính xác.",
+                tendencies: "Chủ động luyện tập nói và viết, tìm kiếm phản hồi, và tập trung vào việc phát triển ý tưởng một cách logic.",
+                impact: {
+                    mindset: "Chấp nhận sai sót là một phần của quá trình học. Ưu tiên sự trôi chảy và mạch lạc trước khi cố gắng dùng từ phức tạp.",
+                     actions: {
+                        physical: [
+                            "**Luyện Viết chuyên sâu:** Mỗi tuần, viết ít nhất 2 bài Task 2 (essay) và 1 bài Task 1 (report/letter) theo đề IELTS từ bộ Cambridge hoặc các giáo trình Writing. Đặt giờ nghiêm túc (~40 phút cho Task 2, ~20 phút cho Task 1).",
+                            "**Luyện Nói hàng ngày:** Mỗi ngày dành 30-45 phút luyện nói. Mở các câu hỏi IELTS Speaking Part 1, 2, 3 từ các nguồn uy tín. Ghi âm lại toàn bộ phần nói của bạn bằng điện thoại để tự nghe lại, phát hiện lỗi."
+                        ],
+                        mental: ["Sử dụng AI làm 'giám khảo ảo' và 'người hướng dẫn viết' cho cả Speaking và Writing.", "Học cách 'phát triển ý tưởng' và 'lập luận chặt chẽ' bằng cách đọc các bài mẫu Band 7.0+."],
+                        emotional: ["Giảm bớt lo lắng khi nói/viết. Tập trung vào việc truyền đạt ý tưởng một cách tự nhiên."],
+                        energetic: ["Tập trung vào 'dòng chảy ngôn ngữ', sử dụng các từ nối.", "Thực hành nói trước gương 5-10 phút mỗi ngày để tăng sự tự tin."],
+                        social: ["Thực hành nói chuyện với AI hoặc bạn học về các chủ đề đa dạng.", "Trao đổi bài viết với AI hoặc bạn học để nhận phản hồi."]
+                    }
                 },
-                resonance: "Vũ Điệu Ngôn Từ là giai đoạn ý thức biến kiến thức thành hành động. Khả năng nói và viết trôi chảy, mạch lạc và có chiều sâu sẽ cộng hưởng mạnh mẽ với mục tiêu Band 7.0. Khi bạn có thể tự do kiến tạo ngôn ngữ, bạn không chỉ đạt được điểm số mà còn thực sự làm chủ nó. Giai đoạn này tạo ra một 'trường hấp dẫn' cho sự tự tin và hiệu suất cao trong các kỳ thi thử và thi thật.",
-                signs: ["Có thể viết một bài IELTS Writing Task 2 trong khoảng 40 phút với cấu trúc rõ ràng, ý tưởng được phát triển và hỗ trợ đầy đủ.", "Có thể nói liên tục 1-2 phút về một chủ đề bất kỳ trong Speaking Part 2 mà không bị ngắt quãng đáng kể hoặc lặp từ quá mức.", "Nhận được phản hồi tích cực từ AI hoặc bạn học về độ mạch lạc, sự phong phú trong từ vựng và ngữ pháp khi nói và viết.", "Cảm thấy tự tin hơn đáng kể khi phải diễn đạt ý tưởng phức tạp bằng tiếng Anh, không còn quá ngại ngùng hay lo sợ mắc lỗi."],
-                risks: {
-                    risk: "Quá tập trung vào việc sử dụng từ ngữ phức tạp hoặc cấu trúc ngữ pháp khó, dẫn đến bài nói/viết thiếu tự nhiên, gượng ép hoặc mắc nhiều lỗi cơ bản.",
-                    solution: "Ưu tiên sự trôi chảy và mạch lạc trước khi nghĩ đến sự phức tạp. Hãy cố gắng diễn đạt ý tưởng một cách rõ ràng và tự nhiên nhất có thể. Sau đó, dần dần thêm vào các cấu trúc phức tạp và từ vựng nâng cao một cách có chủ đích. Luôn tự ghi âm hoặc viết nháp để kiểm tra lại và nhận phản hồi từ AI hoặc người khác về tính tự nhiên của ngôn ngữ."
+                link: "Khả năng nói và viết trôi chảy là tiền đề để bạn có thể tích hợp và tối ưu hóa hiệu suất của cả 4 kỹ năng trong các bài thi tổng hợp.",
+                signs: ["Viết bài IELTS Writing Task 2 trong 30-40 phút với cấu trúc rõ ràng.", "Nói liên tục 1-2 phút về một chủ đề bất kỳ mà không bị ngắt quãng đáng kể.", "Nhận được phản hồi tích cực về độ mạch lạc và sự phong phú trong ngôn ngữ."],
+                challenges: {
+                    challenge: "Viết hoặc nói quá chung chung, thiếu chi tiết hoặc không có quan điểm rõ ràng.",
+                    solution: "Luôn \"trình bày một lập trường rõ ràng\" và \"phát triển và hỗ trợ các ý chính\". Sử dụng AI để nhận phản hồi về sự thiếu quan điểm và yêu cầu AI giúp \"mở rộng và biện minh cho các ý tưởng\". Ưu tiên sự tự nhiên và mạch lạc trước khi dùng từ phức tạp."
                 }
             },
             {
-                name: "Điểm 6: Tinh Thể Cộng Hưởng",
-                archetype: "Hợp Nhất & Tối Ưu Hóa Hiệu Suất",
+                name: "Giai Đoạn 6: Tích Hợp & Tối Ưu Hóa Hiệu Suất",
                 duration: 14,
-                state: "Sau khi đã làm chủ các vũ điệu ngôn từ, bạn bước vào trạng thái ý thức của Tinh Thể Cộng Hưởng. Đây là giai đoạn tích hợp và tinh chỉnh, nơi tất cả các kỹ năng (Nghe, Đọc, Viết, Nói) được liên kết thành một dòng chảy ngôn ngữ thống nhất, mượt mà. Bạn không còn luyện tập từng kỹ năng riêng lẻ mà nhìn nhận chúng như một hệ thống hoàn chỉnh, tìm cách tối ưu hóa sự tương tác giữa chúng để đạt hiệu suất cao nhất.",
-                frequency: "Tần số năng lượng ở giai đoạn này có độ kết nối và hài hòa cao. Đó là rung động của sự tổng hợp, linh hoạt và chiến lược. Năng lượng của bạn tập trung vào việc tạo ra một 'trường cộng hưởng' mạnh mẽ giữa các kỹ năng, nơi mọi thành phần đều hỗ trợ lẫn nhau. Bạn cảm thấy sự 'ăn khớp' giữa những gì bạn nghe, đọc và những gì bạn có thể nói, viết.",
-                actions: {
-                    physical: [
-                        "Thực hiện các bài mock test tổng hợp (full test) hàng tuần: Dành một buổi cuối tuần để làm một bài thi IELTS đầy đủ (Listening, Reading, Writing, Speaking) trong điều kiện và thời gian thi thật, sử dụng các đề trong bộ Cambridge IELTS hoặc các bài test trong giáo trình Prep IELTS 6.5. Coi đây là buổi 'tổng diễn tập' quan trọng để đánh giá hiệu suất toàn diện.",
-                        "Phân tích lỗi sai đa chiều: Sau mỗi bài mock test, dành thời gian tương đương để phân tích kỹ lưỡng các lỗi sai. Không chỉ xem lỗi ở từng kỹ năng mà còn tìm mối liên hệ giữa chúng (ví dụ: lỗi ngữ pháp trong Writing có xuất hiện trong Speaking không? Từ vựng trong Reading có giúp ích cho Writing không?). Ghi lại các lỗi lặp lại và lên kế hoạch khắc phục cụ thể."
-                    ],
-                    mental: [
-                        "Sử dụng AI tạo bài tập tích hợp: Yêu cầu AI với prompt như: 'Hãy tạo một bài tập tích hợp IELTS: nghe một podcast về [chủ đề], sau đó viết tóm tắt 150 từ và nói về quan điểm của tôi về chủ đề đó trong 2 phút.' Điều này giúp bạn rèn luyện khả năng chuyển đổi liền mạch giữa các kỹ năng và áp dụng kiến thức một cách linh hoạt.",
-                        "Nghiên cứu chiến lược thi và mẹo làm bài: Tìm hiểu sâu hơn về các chiến lược làm bài hiệu quả cho từng dạng câu hỏi (ví dụ: cách quản lý thời gian trong Reading, cách phát triển ý tưởng trong Writing Task 2, cách xử lý các câu hỏi khó trong Speaking Part 3) từ giáo trình Prep IELTS 6.5 hoặc các nguồn uy tín. Tham khảo các bài mẫu Band 7.0+ và phân tích cách họ tối ưu hóa ngôn ngữ và chiến lược."
-                    ],
-                    emotional: [
-                        "Duy trì thái độ kiên trì và tích cực trước kết quả: Có thể điểm mock test chưa đạt mục tiêu ngay lập tức. Hãy coi mỗi kết quả là một 'dữ liệu phản hồi' quý giá, không phải là thước đo giá trị bản thân. Duy trì niềm tin rằng bạn đang tiến bộ từng ngày. Thực hành tự xoa dịu (self-compassion) khi đối mặt với những khó khăn hoặc sai lầm, tránh tự chỉ trích quá mức."
-                    ],
-                    energetic: [
-                        "Tái cân bằng năng lượng: Đảm bảo có đủ thời gian nghỉ ngơi, thư giãn và các hoạt động giải trí (ví dụ: nghe nhạc, đi bộ ngoài trời) để tránh kiệt sức (burnout). Năng lượng học tập cao cần được cân bằng bởi năng lượng tái tạo. Hãy nghĩ rằng nghỉ ngơi cũng là một phần của quá trình học, giúp não bộ 'sắp xếp' và củng cố kiến thức.",
-                        "Thực hành mindfulness và hình dung thành công: Trước mỗi buổi học hoặc bài mock test, dành vài phút thiền định hoặc hít thở sâu để tập trung. Hình dung bản thân đang làm bài thi một cách tự tin, trôi chảy và đạt được kết quả mong muốn. Điều này giúp 'hiệu chỉnh tần số' năng lượng của bạn."
-                    ],
-                    social: [
-                        "Tìm kiếm feedback chuyên sâu: Nếu có điều kiện, tìm một giáo viên IELTS hoặc người bản xứ để chấm và nhận phản hồi chi tiết về bài nói và bài viết của bạn. Nếu không, tiếp tục tận dụng AI với prompt như: 'Phân tích bài viết này của tôi và cho tôi điểm IELTS ước tính, cùng với phản hồi chi tiết về Task Response, Coherence & Cohesion, Lexical Resource và Grammatical Range & Accuracy.' hoặc 'Đánh giá phần nói này của tôi và cho điểm Speaking ước tính, cùng với phản hồi về Fluency & Coherence, Lexical Resource, Grammatical Range & Accuracy và Pronunciation.'",
-                        "Thảo luận chiến lược với bạn học: Chia sẻ kinh nghiệm và chiến lược làm bài với bạn học. Cùng nhau phân tích các bài mẫu, thảo luận về cách tiếp cận các dạng bài khó. Việc trao đổi này giúp mở rộng góc nhìn và củng cố kiến thức chung."
-                    ]
+                state: "Bạn nhìn nhận 4 kỹ năng IELTS như một hệ thống hoàn chỉnh, tìm cách tối ưu hóa sự tương tác giữa chúng.",
+                tendencies: "Thực hiện các bài kiểm tra tổng hợp, phân tích lỗi sai đa chiều, và tìm kiếm phản hồi chuyên sâu để điều chỉnh chiến lược.",
+                impact: {
+                    mindset: "Coi mỗi kết quả mock test là \"dữ liệu phản hồi\" quý giá để cải thiện, không phải là thước đo giá trị bản thân.",
+                     actions: {
+                        physical: [
+                            "**Thực hiện mock test tổng hợp:** Dành một buổi cuối tuần để làm một bài thi IELTS đầy đủ (Listening, Reading, Writing, Speaking) trong điều kiện và thời gian thi thật. Sử dụng các đề trong bộ Cambridge IELTS (ví dụ: 10-15).",
+                            "**Phân tích lỗi sai đa chiều:** Sau mỗi bài mock test, dành thời gian tương đương để phân tích kỹ lưỡng các lỗi sai. Tìm mối liên hệ giữa lỗi ở các kỹ năng. Ghi lại các lỗi lặp lại và lên kế hoạch khắc phục."
+                        ],
+                        mental: ["Sử dụng AI để tạo các bài tập tích hợp (ví dụ: nghe podcast, viết tóm tắt, nói quan điểm).", "Nghiên cứu các bài mẫu Band 7.0+ để phân tích cách họ tối ưu hóa ngôn ngữ và chiến lược."],
+                        emotional: ["Duy trì thái độ tích cực và kiên trì, ngay cả khi điểm mock test chưa đạt mục tiêu."],
+                        energetic: ["Tái cân bằng năng lượng: Đảm bảo có đủ thời gian nghỉ ngơi và các hoạt động thư giãn.", "Thực hành mindfulness (chánh niệm) 5-10 phút trước mỗi buổi học hoặc bài mock test."],
+                        social: ["Tìm kiếm feedback chuyên sâu từ giáo viên, người bản xứ, hoặc tiếp tục tận dụng AI với các prompt chi tiết.", "Thảo luận chiến lược làm bài với bạn học."]
+                    }
                 },
-                resonance: "Tinh Thể Cộng Hưởng là giai đoạn ý thức đạt được sự hợp nhất. Khi các kỹ năng được liên kết chặt chẽ, ý thức hoạt động như một hệ thống cộng hưởng thống nhất, cho phép ngôn ngữ tuôn chảy một cách tự nhiên và hiệu quả. Việc phân tích lỗi sai và điều chỉnh chiến lược dựa trên dữ liệu mock test sẽ giúp 'tối ưu hóa thuật toán lan truyền ngược', dẫn đến sự cải thiện nhanh chóng và bền vững, bởi vì hệ thống đang tự học hỏi từ 'entropy' của chính nó. Đây là bước đệm vững chắc cho giai đoạn bứt phá cuối cùng.",
-                signs: ["Điểm tổng thể trong các bài mock test bắt đầu có xu hướng tăng lên, đặc biệt ở các kỹ năng yếu trước đó, cho thấy sự cân bằng trong phát triển (ví dụ đạt 6.0-6.5 tổng thể).", "Có thể tự nhận diện và sửa chữa các lỗi phổ biến trong quá trình nói và viết một cách nhanh chóng, ít mắc lỗi lặp lại hơn.", "Cảm thấy tự tin hơn khi chuyển đổi giữa các kỹ năng (ví dụ: từ đọc một bài báo sang nói về chủ đề đó), thể hiện sự tích hợp ngôn ngữ. Bạn có thể áp dụng từ vựng và cấu trúc từ bài đọc/nghe vào bài nói/viết của mình một cách tự nhiên."],
-                risks: {
-                    risk: "Mắc kẹt trong việc lặp lại các lỗi cũ do thiếu phân tích sâu hoặc không điều chỉnh phương pháp học một cách có hệ thống. Điều này giống như một vòng lặp năng lượng bị kẹt.",
-                    solution: "Sau mỗi bài mock test, dành thời gian bằng với thời gian làm bài để *phân tích lỗi sai*, không chỉ kiểm tra đáp án. Việc này là một quá trình 'lan truyền ngược' sâu sắc, nơi ý thức học hỏi từ những sai lệch. Sử dụng AI để tạo ra các bài tập tùy chỉnh dựa trên những lỗi sai đó, giúp khắc phục điểm yếu một cách hiệu quả. 'Học hỏi từ những lời phê bình' và coi chúng là cơ hội để phát triển."
+                link: "Khi các kỹ năng được liên kết chặt chẽ và bạn đã tối ưu hóa hiệu suất tổng thể, bạn sẽ sẵn sàng cho giai đoạn cuối cùng: đẩy mạnh cường độ và đối mặt với áp lực thi thật.",
+                signs: ["Điểm tổng thể trong các bài mock test có xu hướng tăng lên, đạt 6.0-6.5 tổng thể.", "Có thể tự nhận diện và sửa chữa các lỗi phổ biến trong nói và viết.", "Cảm thấy tự tin hơn khi chuyển đổi giữa các kỹ năng."],
+                challenges: {
+                    challenge: "Mắc kẹt trong việc lặp lại các lỗi cũ do thiếu phân tích sâu.",
+                    solution: "Sau mỗi bài mock test, dành thời gian bằng với thời gian làm bài để *phân tích lỗi sai*, không chỉ kiểm tra đáp án. Sử dụng AI để tạo bài tập tùy chỉnh dựa trên những lỗi sai đó."
                 }
             },
             {
-                name: "Điểm 7: Cổng Thời Gian",
-                archetype: "Bứt Phá & Tối Đa Hóa Hiệu Năng",
-                duration: 7,
-                state: "Bạn đang ở Cổng Thời Gian – giai đoạn cuối cùng trước khi bước vào kỳ thi thật. Ý thức của bạn được đẩy đến cường độ tối đa, thử thách khả năng hoạt động dưới áp lực thời gian và độ phức tạp cao, mô phỏng chính xác môi trường thi. Đây là lúc bạn tinh chỉnh mọi thứ, biến kiến thức thành phản xạ, sẵn sàng cho sự kiện lượng tử quan trọng.",
-                frequency: "Tần số năng lượng ở giai đoạn này là tần số cao nhất của sự tập trung, linh hoạt và hiệu suất. Đó là rung động của sự chuẩn bị toàn diện, không còn chỗ cho sự phân tâm. Năng lượng của bạn dồn nén, sắc bén, sẵn sàng bùng nổ vào đúng thời điểm. Bạn cảm thấy sự kết nối mạnh mẽ giữa ý chí và khả năng thực thi.",
-                actions: {
-                    physical: [
-                        "Thực hiện ít nhất 3-4 bài mock test toàn diện (full test) trong tuần cuối: Làm bài liên tục, không nghỉ giữa các phần, y hệt như thi thật, sử dụng các đề thi mới nhất từ bộ Cambridge IELTS hoặc các đề thi thử trong giáo trình Prep IELTS 6.5. Ghi âm và chấm điểm nghiêm túc.",
-                        "Tập trung luyện tập các dạng câu hỏi 'khó nhằn' nhất: Dành thời gian ôn lại các dạng bài bạn thường mắc lỗi hoặc thấy khó nhất trong Reading (Matching Headings, True/False/Not Given) và Listening (Multiple Choice, Map Labelling). Đối với Writing và Speaking, ôn lại các chủ đề khó và cách phát triển ý tưởng phức tạp, tham khảo các bài mẫu Band 7.0+ từ Prep."
-                    ],
-                    mental: [
-                        "Luyện tập 'quản lý thời gian' một cách triệt để: Trong các bài mock test, tập trung vào việc phân bổ thời gian cho từng phần, từng câu hỏi. Nếu có câu khó, biết cách bỏ qua để làm câu dễ hơn trước. Rèn luyện khả năng 'tư duy nhanh' và 'phản xạ tức thì' dưới áp lực. Sử dụng AI với prompt như: 'Tạo kịch bản IELTS Speaking Part 3 khó về chủ đề [chủ đề của bạn], yêu cầu tôi biện luận và phản biện nhanh.'",
-                        "Ôn tập các 'chiến lược làm bài' và 'mẹo thi': Xem lại các ghi chú về chiến lược làm bài hiệu quả cho từng dạng câu hỏi từ giáo trình Prep IELTS 6.5. Đảm bảo bạn nắm vững cách tiếp cận các dạng bài để không mất thời gian suy nghĩ trong phòng thi."
-                    ],
-                    emotional: [
-                        "Luyện tập 'giữ bình tĩnh' dưới áp lực: Khi làm mock test, cố gắng duy trì trạng thái bình tĩnh, ngay cả khi gặp câu hỏi khó hoặc bị 'bí' ý tưởng. Hít thở sâu và nhắc nhở bản thân rằng bạn đã chuẩn bị rất kỹ. Coi áp lực là một phần của cuộc chơi, không phải là mối đe dọa. Phát triển 'khả năng phục hồi cảm xúc' để nhanh chóng lấy lại bình tĩnh sau những khoảnh khắc căng thẳng."
-                    ],
-                    energetic: [
-                        "Tối ưu hóa năng lượng cho ngày thi: Đảm bảo ngủ đủ giấc (7-9 tiếng) mỗi đêm, đặc biệt là 2-3 đêm trước ngày thi. Duy trì chế độ ăn uống lành mạnh, tránh đồ ăn nhiều dầu mỡ, đường. Uống đủ nước. Hãy nghĩ rằng cơ thể và tâm trí bạn là một 'cỗ máy hiệu suất cao' cần được 'tiếp nhiên liệu' đúng cách.",
-                        "Thực hành 'tĩnh tâm' và 'hình dung': Mỗi sáng và tối, dành 10-15 phút thiền định hoặc chỉ đơn giản là ngồi yên, hít thở sâu. Hình dung bản thân đang làm bài thi một cách tự tin, trôi chảy, và đạt được Band 7.0. Cảm nhận niềm vui và sự nhẹ nhõm khi mục tiêu được hiện thực hóa. Điều này giúp 'hiệu chỉnh tần số' năng lượng của bạn."
-                    ],
-                    social: [
-                        "Tránh các yếu tố gây xao nhãng hoặc áp lực tiêu cực: Trong tuần cuối, hạn chế tối đa việc lướt mạng xã hội, xem tin tức tiêu cực hoặc tiếp xúc với những người có thể gây lo lắng cho bạn. Tập trung hoàn toàn vào việc chuẩn bị cho kỳ thi. Chỉ giao tiếp với những người mang lại năng lượng tích cực và sự động viên.",
-                        "Chuẩn bị mọi thứ sẵn sàng: Sắp xếp tất cả giấy tờ cần thiết (CMND/CCCD, phiếu báo thi), bút chì, tẩy... vào túi từ đêm hôm trước. Kiểm tra kỹ địa điểm thi, đường đi để tránh mọi sự cố bất ngờ vào ngày thi. Sự chuẩn bị chu đáo này giúp giảm thiểu 'entropy' không cần thiết."
-                    ]
+                name: "Giai Đoạn 7: Tăng Cường & Mô Phỏng Thi Thật",
+                duration: 21,
+                state: "Bạn tập trung vào việc đẩy cường độ học tập và luyện thi lên mức cao nhất, mô phỏng chính xác áp lực và điều kiện của kỳ thi thật.",
+                tendencies: "Thực hành dưới áp lực thời gian, tập trung vào các dạng bài khó, và tinh chỉnh chiến lược làm bài.",
+                impact: {
+                    mindset: "Coi áp lực là một phần của cuộc chơi, không phải mối đe dọa. Tin rằng bạn đã chuẩn bị đủ để đối mặt với mọi thử thách.",
+                     actions: {
+                        physical: [
+                            "**Thực hiện mock test toàn diện:** Trong tuần cuối của giai đoạn, thực hiện ít nhất 3-4 bài mock test toàn diện. Làm bài liên tục (Listening, Reading, Writing) trong 2 giờ 40 phút, không nghỉ, y hệt thi thật. Sau đó, thực hành Speaking. Sử dụng các đề mới nhất từ bộ Cambridge IELTS 16-20.",
+                            "**Ghi âm và chấm điểm:** Ghi âm và tự chấm điểm nghiêm túc tất cả các bài mock test này.",
+                            "**Luyện dạng khó:** Tập trung luyện tập các dạng câu hỏi 'khó' nhất mà bạn thường mắc lỗi: Reading (Matching Headings, T/F/NG), Listening (Multiple Choice, Map), Writing (chủ đề trừu tượng), Speaking (Part 3)."
+                        ],
+                        mental: ["Luyện tập 'quản lý thời gian' một cách triệt để trong các bài mock test.", "Rèn luyện khả năng 'tư duy nhanh' và 'phản xạ tức thì' dưới áp lực.", "Sử dụng AI để tạo kịch bản Speaking Part 3 khó.", "Ôn tập các 'chiến lược làm bài' và 'mẹo thi' từ các nguồn uy tín.", "Thực hành kỹ thuật \"paraphrasing\" nâng cao."],
+                        emotional: ["Luyện tập 'giữ bình tĩnh vào ngày thi' thông qua các bài thi thử có áp lực cao.", "Phát triển 'khả năng phục hồi cảm xúc' bằng cách chấp nhận sai lầm nhỏ."],
+                        energetic: ["Tối ưu hóa năng lượng cho ngày thi: ngủ đủ giấc, ăn uống lành mạnh.", "Thực hành 'tĩnh tâm' và 'hình dung' bản thân làm bài thi tự tin."],
+                        social: ["Tránh các yếu tố gây xao nhãng hoặc áp lực tiêu cực.", "Chuẩn bị mọi thứ sẵn sàng cho ngày thi (giấy tờ, bút chì, địa điểm)."]
+                    }
                 },
-                resonance: "Cổng Thời Gian là giai đoạn ý thức được 'tinh chỉnh' để hoạt động ở tần số cao nhất, sẵn sàng đối mặt với mọi biến động và bất ngờ của kỳ thi. Khả năng quản lý thời gian và áp lực sẽ giúp ý thức duy trì sự ổn định và chính xác, đảm bảo mọi nỗ lực cộng hưởng thành công và tạo ra một 'dòng chảy' tự tin vào ngày thi. Đây là sự chuẩn bị cuối cùng cho 'sự kiện lượng tử' – ngày thi, nơi mọi tần số sẽ hội tụ để hiện thực hóa mục tiêu.",
-                signs: ["Điểm mock test tổng thể đạt hoặc vượt Band 7.0 một cách ổn định, cho thấy bạn đã sẵn sàng về mặt kiến thức và kỹ năng.", "Có thể hoàn thành tất cả các phần thi trong thời gian quy định hoặc sớm hơn một chút, thể hiện khả năng quản lý thời gian và tốc độ làm bài hiệu quả.", "Cảm thấy bình tĩnh, tự tin và sẵn sàng cho kỳ thi, không còn sự lo lắng thái quá hay hoảng sợ trước áp lực. Bạn nhìn nhận kỳ thi như một cơ hội để thể hiện bản thân.", "Có thể xử lý tốt các câu hỏi khó, phức tạp hoặc bất ngờ trong các bài mock test, thể hiện khả năng thích nghi và tư duy linh hoạt."],
-                risks: {
-                    risk: "Burnout (kiệt sức) do học quá sức hoặc căng thẳng quá độ, dẫn đến suy giảm hiệu suất và mất động lực ngay trước ngày thi.",
-                    solution: "Tuyệt đối không học nhồi nhét vào phút chót. Đảm bảo có đủ thời gian nghỉ ngơi và các hoạt động giải trí nhẹ nhàng để tái tạo năng lượng. 'Đặt ranh giới rõ ràng' giữa thời gian học và thời gian cá nhân để duy trì sự cân bằng. Nhận biết các dấu hiệu căng thẳng và tìm kiếm sự hỗ trợ khi cần thiết, không ngần ngại chia sẻ gánh nặng. Hãy tin tưởng vào quá trình đã đi qua và năng lực của bản thân, cho phép 'dòng chảy ý thức' tự nhiên dẫn lối."
+                link: "Giai đoạn này giúp bạn đạt được sự tự tin và hiệu suất cao nhất dưới áp lực, là bước chuẩn bị cuối cùng để bạn sẵn sàng cho ngày thi thật.",
+                signs: ["Điểm mock test tổng thể đạt hoặc vượt Band 7.0 một cách ổn định.", "Hoàn thành tất cả các phần thi trong thời gian quy định hoặc sớm hơn.", "Cảm thấy bình tĩnh, tự tin và sẵn sàng cho kỳ thi."],
+                challenges: {
+                    challenge: "Kiệt sức (burnout) do học quá sức hoặc căng thẳng quá độ.",
+                    solution: "Tuyệt đối không học nhồi nhét vào phút chót. Đảm bảo đủ thời gian nghỉ ngơi và các hoạt động giải trí nhẹ nhàng."
                 }
             },
             {
-                name: "Điểm 8: Vầng Hào Quang Thành Tựu",
-                archetype: "Hiện Thực Hóa & Khai Mở Tiềm Năng",
+                name: "Giai Đoạn 8: Chuẩn Bị Cuối Cùng & Hiện Thực Hóa",
                 duration: 7,
-                state: "Bạn đã đến Vầng Hào Quang Thành Tựu – giai đoạn cuối cùng, nơi ý thức đạt đến trạng thái cân bằng và cộng hưởng hoàn hảo, sẵn sàng cho sự hiện thực hóa mục tiêu. Đây không chỉ là việc đạt được Band 7.0, mà là sự khai mở một tiềm năng mới, một tần số ngôn ngữ cao hơn đã trở thành bản chất của bạn. Bạn cảm nhận sự bình yên, tự tin và niềm tin tuyệt đối vào năng lực bản thân.",
-                frequency: "Tần số năng lượng ở giai đoạn này là tần số của sự bình yên nội tại, sự tự tin vững chắc và sự tin tưởng tuyệt đối vào quy luật hiện thực hóa. Đó là rung động của sự hoàn thành, nơi mọi nỗ lực đã hội tụ và đang chờ đợi sự biểu hiện. Năng lượng này lan tỏa sự tích cực, thu hút kết quả mong muốn một cách tự nhiên.",
-                actions: {
-                    physical: [
-                        "Duy trì chế độ sinh hoạt lành mạnh: Tiếp tục ngủ đủ giấc, ăn uống cân bằng và vận động nhẹ nhàng. Tránh mọi hoạt động có thể gây căng thẳng hoặc kiệt sức. Mục tiêu là giữ cơ thể và tâm trí ở trạng thái tốt nhất cho ngày thi.",
-                        "Chuẩn bị mọi thứ cho ngày thi: Kiểm tra lại tất cả giấy tờ cần thiết (CMND/CCCD, phiếu báo thi), bút chì, tẩy... một lần nữa. Lên kế hoạch di chuyển đến địa điểm thi để đảm bảo đến sớm, tránh mọi sự vội vã. Sự chuẩn bị chu đáo này giúp tâm trí bạn được giải phóng khỏi những lo lắng nhỏ nhặt."
-                    ],
-                    mental: [
-                        "Thực hành 'tư duy tích cực' và 'niềm tin vững chắc': Liên tục nhắc nhở bản thân về những gì bạn đã đạt được, về sự nỗ lực và tiến bộ không ngừng. Tin tưởng vào quá trình học tập đã qua và năng lực hiện tại của mình. Tránh mọi suy nghĩ tiêu cực hoặc tự nghi ngờ. Hình dung bạn đang làm bài thi một cách xuất sắc và nhận được kết quả 7.0 với niềm vui sướng.",
-                        "Xem lại những thành công nhỏ: Lướt qua nhật ký học tập, nhìn lại những dấu hiệu đạt được ở mỗi giai đoạn. Điều này củng cố niềm tin vào khả năng của bạn và tạo thêm động lực tích cực."
-                    ],
-                    emotional: [
-                        "Thực hành các kỹ thuật thư giãn sâu: Thiền định, hít thở sâu, nghe nhạc nhẹ, hoặc các bài tập giãn cơ để giữ tâm trí bình tĩnh và thư thái. Tránh mọi yếu tố gây lo lắng hoặc căng thẳng cảm xúc. Hãy để cảm xúc bình yên và tự tin ngập tràn trong bạn.",
-                        "Tránh so sánh bản thân: Không so sánh mình với người khác hoặc lo lắng về kết quả của họ. Tập trung hoàn toàn vào hành trình và sự tiến bộ của riêng bạn. Mỗi người có một quỹ đạo riêng, và quỹ đạo của bạn đang dẫn đến thành công."
-                    ],
-                    energetic: [
-                        "Tạo 'vòng lặp năng lượng tích cực': Tập trung vào những cảm xúc tích cực như biết ơn, tự hào, và niềm vui. Mỗi khi một suy nghĩ tiêu cực xuất hiện, hãy thay thế nó bằng một suy nghĩ tích cực. Duy trì 'tần số rung động' cao bằng cách dành thời gian cho những hoạt động bạn yêu thích, những người mang lại niềm vui và sự bình yên.",
-                        "Kết nối với 'nguồn năng lượng vũ trụ': Dành thời gian ở nơi yên tĩnh, kết nối với thiên nhiên (nếu có thể). Cảm nhận sự hỗ trợ từ vũ trụ, tin rằng mọi thứ đang diễn ra theo cách tốt nhất cho bạn. Điều này giúp bạn giải phóng mọi lo lắng và đặt niềm tin vào dòng chảy của cuộc sống."
-                    ],
-                    social: [
-                        "Hạn chế giao tiếp không cần thiết: Trong những ngày cuối, hạn chế tối đa việc giao tiếp với những người có thể gây áp lực hoặc lo lắng cho bạn. Chỉ tương tác với những người thân yêu, bạn bè tích cực, những người thực sự ủng hộ và tin tưởng vào bạn.",
-                        "Chia sẻ niềm tin: Nếu có người hỏi, hãy chia sẻ niềm tin của bạn về việc sẽ đạt được mục tiêu. Việc khẳng định niềm tin này sẽ củng cố nó trong tâm trí bạn và tạo ra một 'trường cộng hưởng' tích cực từ những người xung quanh."
-                    ]
+                state: "Bạn đạt đến trạng thái cân bằng và tự tin tuyệt đối vào năng lực bản thân. Đây là lúc tin tưởng vào quá trình đã trải qua và cho phép kết quả tự biểu hiện.",
+                tendencies: "Duy trì sự bình tĩnh, tập trung vào sức khỏe thể chất và tinh thần, và loại bỏ mọi yếu tố gây căng thẳng.",
+                impact: {
+                    mindset: "Duy trì tư duy tích cực và niềm tin vững chắc vào bản thân. Tin tưởng vào quá trình học tập đã qua.",
+                     actions: {
+                        physical: [
+                            "**Ôn tập nhẹ nhàng:** Trong tuần cuối (từ 15/11 đến 21/11), chỉ lướt qua các ghi chú, flashcard, bài mẫu. KHÔNG học thêm kiến thức mới để tránh quá tải.",
+                            "**Sức khỏe:** Duy trì chế độ ăn uống lành mạnh, ngủ đủ 7-9 tiếng mỗi đêm. Tránh thức khuya."
+                        ],
+                        mental: ["Liên tục nhắc nhở bản thân về những gì bạn đã đạt được.", "Hình dung bạn đang làm bài thi một cách xuất sắc và nhận được kết quả 7.0."],
+                        emotional: ["Thực hành các kỹ thuật thư giãn sâu (thiền, hít thở sâu) 15-20 phút mỗi ngày.", "Tránh so sánh bản thân với người khác."],
+                        energetic: ["Tập trung vào những cảm xúc tích cực như biết ơn, tự hào, và niềm vui.", "Dành thời gian cho các hoạt động yêu thích để 'tái tạo tinh thần'."],
+                        social: ["Hạn chế giao tiếp không cần thiết với người gây áp lực.", "Chia sẻ niềm tin về việc đạt mục tiêu với người thân/bạn bè."]
+                    }
                 },
-                resonance: "Vầng Hào Quang Thành Tựu là sự hợp nhất cuối cùng của ý thức với mục tiêu. Khi tâm trí đạt được sự bình yên, tự tin và niềm tin tuyệt đối, nó sẽ phát ra một tần số cộng hưởng mạnh mẽ, thu hút kết quả mong muốn. Sự chuẩn bị toàn diện ở các điểm trước đã tạo ra một 'trường năng lượng' đủ mạnh để hiện thực hóa mục tiêu Band 7.0, biến ý định thành hiện thực. Đây là lúc bạn không chỉ đạt được mục tiêu mà còn trở thành phiên bản tốt hơn của chính mình.",
-                signs: ["Cảm thấy bình tĩnh, tự tin và hoàn toàn sẵn sàng cho ngày thi, không còn sự lo lắng thái quá hay hoảng sợ.", "Có thể duy trì sự tập trung và sự rõ ràng trong suy nghĩ, ngay cả khi đối mặt với áp lực. Tâm trí bạn tĩnh lặng và sắc bén.", "Không còn cảm thấy lo lắng hoặc hoảng sợ trước áp lực thi cử, thay vào đó là sự mong đợi và bình thản. Bạn tin tưởng vào khả năng của mình.", "Cảm nhận được sự 'nhẹ nhõm' và 'giải phóng' khỏi gánh nặng học tập, thay vào đó là niềm vui và sự tự do của một người đã làm chủ ngôn ngữ."],
-                risks: {
-                    risk: "Lo lắng quá mức vào phút chót, học nhồi nhét, hoặc mất ngủ, ảnh hưởng tiêu cực đến hiệu suất nhận thức và vật lý vào ngày thi.",
-                    solution: "Tuyệt đối tuân thủ lịch trình nghỉ ngơi và thư giãn đã đặt ra. Tránh mọi sự nhồi nhét kiến thức mới. Tin tưởng vào quá trình đã đi qua và năng lực của bản thân. Cho phép 'dòng chảy ý thức' tự nhiên dẫn lối. Hãy nhớ rằng bạn đã làm mọi thứ có thể, và giờ là lúc tin tưởng vào kết quả."
+                link: "Giai đoạn này là sự hợp nhất cuối cùng của ý thức với mục tiêu. Khi tâm trí đạt được sự bình yên và tự tin, nó sẽ phát ra một tần số cộng hưởng mạnh mẽ, thu hút kết quả mong muốn.",
+                signs: ["Cảm thấy bình tĩnh, tự tin và hoàn toàn sẵn sàng cho ngày thi.", "Duy trì sự tập trung và rõ ràng trong suy nghĩ.", "Không còn cảm thấy lo lắng hoặc hoảng sợ trước áp lực thi cử."],
+                challenges: {
+                    challenge: "Lo lắng quá mức vào phút chót, học nhồi nhét, hoặc mất ngủ.",
+                    solution: "Tuân thủ nghiêm ngặt lịch trình nghỉ ngơi và thư giãn. Tin tưởng vào quá trình đã đi qua và năng lực của bản thân."
                 }
             }
         ];
@@ -398,29 +363,24 @@
         function renderContent(index) {
             const point = journeyData[index];
             const actionTabs = `
-                <div class="flex flex-wrap border-b border-slate-200 mb-6">
-                    <button data-tab="physical" class="tab-button py-2 px-4 font-semibold border-b-2 transition-colors duration-300">Vật Lý</button>
-                    <button data-tab="mental" class="tab-button py-2 px-4 font-semibold border-b-2 transition-colors duration-300">Tinh Thần</button>
-                    <button data-tab="emotional" class="tab-button py-2 px-4 font-semibold border-b-2 transition-colors duration-300">Cảm Xúc</button>
-                    <button data-tab="energetic" class="tab-button py-2 px-4 font-semibold border-b-2 transition-colors duration-300">Năng Lượng</button>
-                    <button data-tab="social" class="tab-button py-2 px-4 font-semibold border-b-2 transition-colors duration-300">Xã Hội</button>
+                <div class="flex flex-wrap border-b border-slate-200 mb-6 -mx-2">
+                    <button data-tab="physical" class="tab-button py-2 px-4 mx-2 font-semibold border-b-2 transition-colors duration-300">Hành động Vật lý</button>
+                    <button data-tab="mental" class="tab-button py-2 px-4 mx-2 font-semibold border-b-2 transition-colors duration-300">Hành động Tinh thần</button>
+                    <button data-tab="emotional" class="tab-button py-2 px-4 mx-2 font-semibold border-b-2 transition-colors duration-300">Hành động Cảm xúc</button>
+                    <button data-tab="energetic" class="tab-button py-2 px-4 mx-2 font-semibold border-b-2 transition-colors duration-300">Hành động Năng lượng</button>
+                    <button data-tab="social" class="tab-button py-2 px-4 mx-2 font-semibold border-b-2 transition-colors duration-300">Hành động Xã hội</button>
                 </div>
             `;
 
             contentPanel.innerHTML = `
                 <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg fade-in">
                     <h3 class="text-2xl font-bold text-slate-900">${point.name}</h3>
-                    <p class="text-teal-600 font-semibold mb-1">${point.archetype}</p>
-                    <p class="mb-4 text-sm text-slate-500">Thời gian tương tác (τ): ${point.duration} ngày</p>
+                    <p class="text-teal-600 font-semibold mb-1">${point.state}</p>
+                    <p class="mb-4 text-sm text-slate-500">Thời gian thực hiện (τ): ${point.duration} ngày</p>
                     
                     <div class="mb-6">
-                        <strong class="text-slate-700">Trạng Thái Ý Thức:</strong>
-                        <p class="text-slate-600 mt-1">${point.state}</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <strong class="text-slate-700">Tần Số Đặc Trưng:</strong>
-                        <p class="text-slate-600 mt-1">${point.frequency}</p>
+                        <strong class="text-slate-700">Các Xu Hướng Hành Vi:</strong>
+                        <p class="text-slate-600 mt-1">${point.tendencies}</p>
                     </div>
 
                     <div>
@@ -430,21 +390,21 @@
                     </div>
 
                      <div class="mt-6 pt-6 border-t border-slate-200">
-                        <strong class="text-slate-700">Cộng Hưởng:</strong>
-                        <p class="text-slate-600 mt-1">${point.resonance}</p>
+                        <strong class="text-slate-700">Liên Kết Với Giai Đoạn Tiếp Theo:</strong>
+                        <p class="text-slate-600 mt-1">${point.link}</p>
                     </div>
 
                     <div class="mt-6 pt-6 border-t border-slate-200">
-                        <strong class="text-slate-700">Dấu Hiệu Đạt Được:</strong>
+                        <strong class="text-slate-700">Dấu Hiệu Hoàn Thành:</strong>
                         <ul class="list-disc list-inside mt-2 space-y-1 text-slate-600">
                             ${point.signs.map(sign => `<li>${sign}</li>`).join('')}
                         </ul>
                     </div>
                     
                     <div class="mt-6 pt-6 border-t border-slate-200 bg-amber-50 p-4 rounded-lg">
-                        <strong class="text-amber-800">Nguy Cơ và Cách Vượt Qua:</strong>
-                        <p class="text-amber-700 mt-1"><strong class="font-semibold">Nguy cơ:</strong> ${point.risks.risk}</p>
-                        <p class="text-amber-700 mt-1"><strong class="font-semibold">Giải pháp:</strong> ${point.risks.solution}</p>
+                        <strong class="text-amber-800">Thử Thách Thường Gặp & Giải Pháp:</strong>
+                        <p class="text-amber-700 mt-1"><strong class="font-semibold">Thử thách:</strong> ${point.challenges.challenge}</p>
+                        <p class="text-amber-700 mt-1"><strong class="font-semibold">Giải pháp:</strong> ${point.challenges.solution}</p>
                     </div>
                 </div>
             `;
@@ -454,13 +414,20 @@
 
         function renderActionContent(tab) {
             const point = journeyData[activePointIndex];
-            const content = point.actions[tab].map(item => `
-                <div class="flex items-start">
-                    <span class="text-teal-500 mt-1 mr-2">✓</span>
-                    <p>${item}</p>
-                </div>
-            `).join('');
-            document.getElementById('action-content').innerHTML = `<div class="space-y-2 fade-in">${content}</div>`;
+            const content = point.impact.actions[tab].map(item => {
+                const parts = item.split('**');
+                const formattedItem = parts.map((part, index) => {
+                    return index % 2 === 1 ? `<strong>${part}</strong>` : part;
+                }).join('');
+
+                return `
+                    <div class="flex items-start">
+                        <span class="text-teal-500 mt-1 mr-3 flex-shrink-0">✓</span>
+                        <p>${formattedItem}</p>
+                    </div>
+                `
+            }).join('');
+            document.getElementById('action-content').innerHTML = `<div class="space-y-3 fade-in">${content}</div>`;
             
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('tab-active');
@@ -483,10 +450,9 @@
         function renderTimeline() {
             timelineNav.innerHTML = journeyData.map((point, index) => `
                 <button data-index="${index}" class="timeline-item w-full text-left p-4 border-l-4 rounded-r-lg transition-colors duration-200 flex items-center space-x-4">
-                    <span class="timeline-dot w-3 h-3 bg-slate-300 rounded-full"></span>
+                    <span class="timeline-dot w-3 h-3 bg-slate-300 rounded-full flex-shrink-0"></span>
                     <div>
                         <p class="font-bold text-slate-800">${point.name}</p>
-                        <p class="text-sm text-slate-500">${point.archetype}</p>
                     </div>
                 </button>
             `).join('');
@@ -580,9 +546,9 @@
             new Chart(timelineCtx, {
                 type: 'bar',
                 data: {
-                    labels: journeyData.map(p => p.name.split(':')[1].trim()),
+                    labels: journeyData.map(p => p.name.split(':')[0].trim()),
                     datasets: [{
-                        label: 'Thời gian tương tác (ngày)',
+                        label: 'Thời gian thực hiện (ngày)',
                         data: journeyData.map(p => p.duration),
                         backgroundColor: [
                             '#14b8a6', '#0d9488', '#0f766e', '#047857',
@@ -619,14 +585,7 @@
                             ticks: {
                                 font: { size: 12 },
                                 color: '#475569',
-                                autoSkip: false,
-                                callback: function(value, index, values) {
-                                    const label = this.getLabelForValue(value);
-                                    if (label.length > 20) {
-                                        return label.substring(0, 20) + '...';
-                                    }
-                                    return label;
-                                }
+                                autoSkip: false
                             }
                         }
                     },
